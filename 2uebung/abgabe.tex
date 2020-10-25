@@ -135,7 +135,7 @@ Ungleichungen zu Gleichungen mit Schlupfvariablen:
     & x_{1}, x_{2}, x_{3}, x_{4}, x_{5}, x_{6}, x_{7} \ge 0 \\
 \end{align*}
 
-$\to$ Modell liegt jetzt in Normalform vor.
+$\to$ Modell liegt jetzt in Standardform vor.
 
 \subsection*{Simplex II}
 \begin{align*}
@@ -144,37 +144,54 @@ $\to$ Modell liegt jetzt in Normalform vor.
     x_{5} &= 20 - x_{2} - x_{3} \\
     x_{6} &= 50 - 5x_{1} - 2x_{3} \\
     x_{7} &= 70 - 4x_{1} - 2x_{2} \\
+    & x_{1}, x_{2}, x_{3}, x_{4}, x_{5}, x_{6}, x_{7} \ge 0 \\
 \end{align*}
 
 Basislösung: $x_{4}=10; x_{5}=20; x_{6}=50; x_{7}=70;$ \\
 $\to$ Zulässig, weil keine NBV mit negativem Wert \\
 $\to$ Nicht degeneriert, weil keine NBV gleich 0 \\
 
-Iteration 1:
+Iteration 1: \\
+{\color{red} Selektiere größten positiven NBV Koeffizient (15)}
 \begin{align*}
-    \text{max. } z &= 5x_{1} + {\color{red}15x_{2}} + 10x_{3} && \\
-    x_{4} &= 10 - x_{3} && \big| \le \infty \\
-    x_{5} &= 20 - {\color{red}x_{2}} - x_{3} && \big| \color{red} \le 20 \\
-    x_{6} &= 50 - 5x_{1} - 2x_{3} && \big| \le \infty \\
-    x_{7} &= 70 - 4x_{1} - {\color{red}2x_{2}} && \big| \le 70:2=35 \\
+    \text{max. } z &= 5x_{1} + {\color{red}15x_{2}} + 10x_{3} && \text{Quotiententest} \\
+    x_{4} &= 10 - x_{3} && \big| x_{2} \le \infty \\
+    x_{5} &= 20 - {\color{red}x_{2}} - x_{3} && \big| x_{2} \color{red} \le 20  \text{ (Minimale Beschränkung)} \\
+    x_{6} &= 50 - 5x_{1} - 2x_{3} && \big| x_{2} \le \infty \\
+    x_{7} &= 70 - 4x_{1} - {\color{red}2x_{2}} && \big| x_{2} \le 70:2=35 \\
+    & x_{1}, x_{2}, x_{3}, x_{4}, x_{5}, x_{6}, x_{7} \ge 0 \\
+    \\
+    &&& \text{Termumformung:} \\
+    &&& x_{5}= 20 -x_{2} -x_{3} &&\big| + x_{2} \\
+    &&& x_{2} + x_{5}= 20 -x_{3} &&\big| - x_{5} \\
+    &&& x_{2} = 20 -x_{3} - x_{5}
 \end{align*}
 
-Iteration 2:
+Iteration 2: \\
+{\color{red} Selektiere größten positiven NBV Koeffizient (5)}
 \begin{align*}
-    \text{max. } z &= 300 + {\color{red}5x_{1}} - 5x_{3} - 15x_{5} && \\
-    x_{4} &= 10 - x_{3} && \big| \le \infty \\
-    x_{2} &= 20 - x_{3} - x_{5} && \big| \le \infty \\
-    x_{6} &= 50 - {\color{red}5x_{1}} - 2x_{3} && \big| \le 10 \\
-    x_{7} &= 30 - {\color{red}4x_{1}} + 2x_{3} - 2x_{5} && \big| \color{red} \le 30:4=7,5 \\
+    \text{max. } z &= 300 + {\color{red}5x_{1}} - 5x_{3} - 15x_{5} && \text{Quotiententest} \\
+    x_{4} &= 10 - x_{3} && \big| x_{1} \le \infty \\
+    x_{2} &= 20 - x_{3} - x_{5} && \big| x_{1} \le \infty \\
+    x_{6} &= 50 - {\color{red}5x_{1}} - 2x_{3} && \big| x_{1} \le 10 \\
+    x_{7} &= 30 - {\color{red}4x_{1}} + 2x_{3} + 2x_{5} && \big| \color{red} x_{1} \le 30:4=7,5 \text{ (Minimale Beschränkung)} \\
+    & x_{1}, x_{2}, x_{3}, x_{4}, x_{5}, x_{6}, x_{7} \ge 0 \\
+    \\
+    &&& \text{Termumformung:} \\
+    &&& x_{7}= 30 -x_{4} +2x_{3} +2x_{5} &&\big| + 4x_{1} \\
+    &&& 4x_{1} + x_{7} = 30 +2x_{3} +2x_{5} &&\big| - x_{7} \\
+    &&& 4x_{1} = 30 +2x_{3} +2x_{5} - x_{7} &&\big| :4 \\
+    &&& x_{1} = 7,5 +0,5x_{3} +0,5x_{5} - 0,25x_{7} \\
 \end{align*}
 
 Iteration 3:
 \begin{align*}
-    \text{max. } z &= {\color{teal}337,5} - 2,5x_{3} - 12,5x_{5} + 1,25x_{7} \\
+    \text{max. } z &= {\color{teal}337,5} - 2,5x_{3} - 12,5x_{5} - 1,25x_{7} \\
     x_{4} &= 10 - x_{3} \\
     x_{2} &= {\color{teal}20} - x_{3} - x_{5} \\
-    x_{6} &= 12,5 - 4,5x_{3} - 2,5x_{5} +1,25x_{7} \\
-    x_{1} &= {\color{teal}7,5} - 0,5x_{3} - 0,5x_{5} + 0,25x_{7} \\
+    x_{6} &= 12,5 - 4,5x_{3} - 2,5x_{5} + 1,25x_{7} \\
+    x_{1} &= {\color{teal}7,5} + 0,5x_{3} + 0,5x_{5} - 0,25x_{7} \\
+    & x_{1}, x_{2}, x_{3}, x_{4}, x_{5}, x_{6}, x_{7} \ge 0 \\
 \end{align*}
 
 $\to$ \textbf{Optimale Lösung bei:}
