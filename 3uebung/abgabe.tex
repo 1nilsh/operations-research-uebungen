@@ -1,0 +1,102 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=25mm,right=25mm,bottom=20mm,left=25mm,includefoot]{geometry} % Seitenränder
+
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Lösung Übungsblatt 3}
+\rhead{Gruppe 3: Sascha Majewsky / Nils Hodys}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+\section*{Aufgabe 1}
+\subsection*{Ausgangsmodell}
+\begin{align*}
+\text{max. } & z = 4x_1 - 2x_2 \\
+\text{s.t. } & x_3 = 30 - x_1 - 2x_2 \\
+& x_4 = {\color{red} -20} - 2x_1 + 2x_2  & \color{red} \to \text{Phase I notwendig} \\
+& x_5 = 25 -4x_1 - x_2 \\
+& x_1, x_2, x_3, x_4, x_5 \ge 0 \\
+\end{align*}
+
+\subsection*{Neue Zielfunktion \emph{s}}
+\begin{align*}
+\text{max. } s &= x_4 \\
+&= -20 - 2x1 + {\color{red} 2x_2}
+\end{align*}
+
+\begin{align*}
+& z = 0 + 4x_1 - 2x_2 \\
+& x_3 = 30 - x_1 - 2x_2 &&\big| x_2 \uparrow 15 \\
+& x_4 = -20 - 2x_1 + {\color{red} 2x_2} &&\big| \color{red} x_2 \uparrow 10 \\
+& x_5 = 25 -4x_1 - x_2 &&\big| x_2 \uparrow 12,5 \\
+& x_1, x_2, x_3, x_4, x_5, z???? \ge 0 \\
+\end{align*}
+
+\subsection*{Nach Umformen und Einsetzen:}
+\begin{align*}
+\text{max. } & s = x_4 \\
+\text{s.t. } & z = -20 + 2x_1 - x_4 \\
+& x_2 = 10 + x_1 + \frac{1}{2}x_4 \\
+& x_3 = 10 - 3x_1 - x_4 \\
+& x_5 = 15 - 5x_1 - \frac{1}{2}x_4 \\
+& x_1, x_2, x_3, x_4, x_5, z???? \ge 0
+\end{align*}
+
+\subsection*{Simplex Phase II}
+\begin{align*}
+\text{max. } & z = -20 + {\color{red} 2x_1} - x_4 \\
+\text{s.t. } & x_2 = 10 + x_1 + \frac{1}{2}x_4 &&\big| x_1 \le 10 \\
+& x_3 = 10 - 3x_1 - x_4 &&\big| x_1 \le \frac{10}{3} \\
+& x_5 = 15 - {\color{red} 5x_1} - \frac{1}{2}x_4 &&\big| \color{red} x_1 \le 3 \to \text{minimale Beschränkung} \\
+& x_1, x_2, x_3, x_4, x_5 \ge 0
+\end{align*}
+
+\subsection*{Nach Umformen und Einsetzen:}
+\begin{align*}
+\text{max. } & {\color{teal} z = 14} - \frac{2}{10}x_4 - \frac{2}{5}x_5 \\
+\text{s.t. } & {\color{teal} x_1 = 3} - \frac{1}{10}x_4 - \frac{1}{5}x_5 \\
+& {\color{teal} x_2 = 13} + \frac{2}{5}x_4 - \frac{1}{5}x_5 \\
+& x_3 = 1 - \frac{7}{10}x_4 + \frac{6}{5}x_5 \\
+& x_1, x_2, x_3, x_4, x_5 \ge 0
+\end{align*}
+
+\subsection*{Lösung:}
+\begin{align*}
+z &= 14 \\
+x_1 &= 3 \\
+x_2 &= 13
+\end{align*}
+
+
+\section*{Aufgabe 2}
+Wtf is this shiet
+
+\section*{Aufgabe 3}
+\subsection*{a)}
+
+\subsection*{b)}
+Der Umsatz pro Tag steigt durch den höheren Preis.
+Die Produktionsmengen bleiben unverändert, da bereits die nach den Restriktionen maximal mögliche Menge Bananeneis produziert wird.
+
+\subsection*{c)}
+Ja, es bleiben Zutaten für 7,5 Kugeln / 750g Bananeneis (\emph{Row 3}) über.
+Es bleiben Zutaten für 40 Kugeln / 4000g Himbeereis (\emph{Row 6}) über.
+
+\subsection*{d)}
+$x_BA$ wird bereits maximal produziert. Erhöhung: $+ \infty$
+
+\subsection*{e)}
+
+
+\end{document}
