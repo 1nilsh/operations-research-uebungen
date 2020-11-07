@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
 \usepackage[ngerman]{babel} % Change hyphenation rules
 \usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
-\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=14pt]{geometry} % Seitenränder
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=28pt]{geometry} % Seitenränder
 
 \usepackage{lmodern,textcomp} % The package supports the Text Companion fonts, which provide many text symbols (benötigt für €)
 \usepackage[fleqn]{amsmath} % Formatierte Gleichungen
@@ -15,8 +15,8 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{Lösung Übungsblatt 4}
-\rhead{Sascha Majewsky / Nils Hodys}
+\lhead{Lösung \\Übungsblatt 4}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
 \rfoot{Seite \thepage}
 
 \setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
@@ -29,7 +29,7 @@
 
 \subsection*{Entscheidungsvariablen} 
 \subsubsection*{Kontinuierliche Variablen}
-$x_{s}$: ha Ackerfläche pro Anbauperiode zur Produktion von Schnaps\\
+$x_{s}$: ha Ackerfläche pro Anbauperiode zur Produktion von Schnaps \\
 $x_{b}$: ha Ackerfläche pro Anbauperiode zur Produktion von Bier \\
 $x_{w}$: ha Ackerfläche pro Anbauperiode zur Produktion von Wein \\
 \bigbreak
@@ -52,7 +52,9 @@ y_w &= \begin{cases}
 
 \subsection*{Modellierung}
 Anmerkung: \\
-Es gibt keine Mindestbestellmengen an Ackerfläche pro Jahr pro Produkt und daher sind in Bezug dessen keine Schwellenwerte zu beachten \\
+Es gibt keine Mindestbestellmengen an Ackerfläche pro Jahr pro Produkt und daher sind in Bezug dessen keine Schwellenwerte zu beachten. \\
+Die Aufgabenstellung verlangt nicht, dass nur vollständige Fässer abgefüllt werden können.
+
 \bigbreak
 Zielfunktion: \\
 Zielfunktion mit Maximierungsausrichtung abzüglich Fixkosten. Koeffizienten von $x_n$ in GE / ha.
@@ -146,6 +148,20 @@ Anmerkung: \\
 \subsection*{Lösung laut Solver}
 \begin{centering}
 	\includegraphics[width=1\linewidth]{src/blatt_4_aufgabe_2_loesung_solver.PNG}
+\end{centering}
+
+\subsection*{Ganzzahligkeit}
+Aus der Aufgabe geht nicht hervor, ob nur vollständige Salate produziert werden können. Wenn angenommen werden soll, dass nur ganze Salate produziert werden können, muss die Restriktion der Ganzzahligkeit hinzugefügt werden. \newline
+
+Die vorletzte Restriktion muss dann lauten:
+\begin{align*}
+x_{M}, x_{L}, x_{C} \ge 0, \text{integer}
+\end{align*}
+
+Zudem müssen die Variablen in Lingo mit \textit{@GIN} als Integer deklariert werden:
+
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/ganzzahlig.png}
 \end{centering}
 
 $\to$ \textbf{Salatbar Optimalfall:} \\
