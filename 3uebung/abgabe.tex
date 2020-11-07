@@ -34,6 +34,8 @@
 & x_1, x_2, x_3, x_4, x_5 \ge 0 \\
 \end{align*}
 
+$\to$ Lösung unzulässig, deshalb ist zuerst die Phase I notwendig. \\
+
 \subsection*{Neue Zielfunktion \emph{s}}
 \begin{align*}
 \text{max. } s &= x_4 \\
@@ -122,24 +124,24 @@ $\to$ Bereits eine max-Zielfunktion. \\
 \begin{align*}
 \text{max. } & z = 5x_1 + x_2 - 2x_3 \\
 \text{s.t. } & x_4 = 25 - x_1 - 2x_2 - 3x_3 \\
-& {\color{red} x_5 = -25} + 5x_1 + 2_x3 \color{red} \longrightarrow \text{Ungültig} \\
+& {\color{red} x_5 = -25} + 5x_1 + 2x_3 \color{red} \longrightarrow \text{Unzulässig} \\
 & x_6 = 25 - 5x_1 - 2x_3 \\
-& {\color{red} x_7 = -30} + 3x_1 - 8x_2 \color{red} \longrightarrow \text{Ungültig} \\
+& {\color{red} x_7 = -30} + 3x_1 - 8x_2 \color{red} \longrightarrow \text{Unzulässig} \\
 & x_1, x_2, x_3, x_4, x_5, x_6, x_7 \ge 0
 \end{align*}
 
-$\to$ Simplex I notwendig.
+$\to$ Lösung unzulässig, deshalb ist zuerst die Phase I notwendig. \\
 
 \subsection*{Neue Zielfunktion \emph{s}}
 \begin{align*}
 \text{max. } s &= x_5 + x_7 \\
-&= (-25 + 5x_1 + 2_x3) + (-30 + 3x_1 - 8x_2) \\
+&= (-25 + 5x_1 + 2x_3) + (-30 + 3x_1 - 8x_2) \\
 &= -55 + {\color{red} 8x_1} - 8x_2 + 2x_3
 \end{align*}
 \begin{align*}
 \text{s.t. } & z = 0 + 5x_1 + x_2 - 2x_3 \\
 & x_4 = 25 - x_1 - 2x_2 - 3x_3 &&\big| x_1 \uparrow 25 \\
-& x_5 = -25 + {\color{red} 5x_1} + 2_x3 &&\big| \color{red} x_1 \uparrow 5 \\
+& x_5 = -25 + {\color{red} 5x_1} + 2x_3 &&\big| \color{red} x_1 \uparrow 5 \\
 & x_6 = 25 - 5x_1 - 2x_3 &&\big| x_1 \uparrow 5 \\
 & x_7 = -30 + 3x_1 - 8x_2 &&\big| x_1 \uparrow 10 \\
 & x_1, x_2, x_3, x_4, x_5, x_6, x_7 \ge 0
@@ -152,7 +154,8 @@ $\to$ Simplex I notwendig.
 & x_1 = 5 - \frac{2}{5}x_3 + \frac{1}{5}x_5 &&\big| x_5 \uparrow \infty \\
 & x_4 = 20 - 2x_2 - \frac{13}{5}x_3 - \frac{1}{5}x_5 &&\big| x_5 \uparrow 100 \\
 & x_6 = 0 - {\color{red} x_5} &&\big| \color{red} x_5 \uparrow 0 \\
-& x_7 = -15 - 8x_2 - \frac{6}{5}x_3 + \frac{3}{5}x_5 &&\big| x_5 \uparrow 25
+& x_7 = -15 - 8x_2 - \frac{6}{5}x_3 + \frac{3}{5}x_5 &&\big| x_5 \uparrow 25 \\
+& x_1, x_2, x_3, x_4, x_5, x_6, x_7 \ge 0
 \end{align*}
 
 \subsection*{Nach Umformen und Einsetzen - Iteration 2}
@@ -162,7 +165,8 @@ $\to$ Simplex I notwendig.
 & x_1 = 5 - \frac{2}{5}x_3 - \frac{1}{5}x_6 \\
 & x_4 = 20 - 2x_2 - \frac{13}{5}x_3 + \frac{1}{5}x_6 \\
 & x_5 = 0 - x_6 \\
-& {\color{red} x_7 = -15} - 8x_2 - \frac{6}{5}x_3 - \frac{3}{5}x_6 \color{red} \longrightarrow \text{Immer noch ungültig}
+& {\color{red} x_7 = -15} - 8x_2 - \frac{6}{5}x_3 - \frac{3}{5}x_6 \color{red} \longrightarrow \text{Immer noch unzulässig} \\
+& x_1, x_2, x_3, x_4, x_5, x_6, x_7 \ge 0
 \end{align*}
 
 $\to$ Abbruchbedingung des Simplex-Algorithmus ist erfüllt, es kann keine zulässige Lösung gefunden werden. \\
@@ -175,7 +179,6 @@ $\to$ Abbruchbedingung des Simplex-Algorithmus ist erfüllt, es kann keine zulä
 $x_{BA}, x_{HI}, x_{ER}, x_{Row3}, x_{Row6}$, da diese für die Lösung nicht auf 0 gesetzt wurden.
 
 \subsection*{b)}
-Der Umsatz pro Tag steigt durch den höheren Preis.
 Die Produktionsmengen bleiben unverändert, da bereits die nach den Restriktionen maximal mögliche Menge Bananeneis produziert wird.
 
 \subsection*{c)}
@@ -187,14 +190,16 @@ $x_{BA}$ wird bereits maximal produziert.\\
 Zulässige Erhöhung: $+ \infty$. \\
 Zulässige Reduktion: $-0,1$ € / Kugel. \\
 
+\vspace{4mm}
 \includegraphics[width=.8\linewidth]{src/zielfunktion.png}
 
 \subsection*{e)}
 
-Die Menge der Bananen darf unendlich erhöht werden. Sie darf um die für 7,5 Kugeln notwendige Menge reduziert werden (300g Bananen). \newline
+[Blau] Die Menge der Bananen darf unendlich erhöht werden. Sie darf um die für 7,5 Kugeln notwendige Menge reduziert werden (300g Bananen). \newline
 
-Die Menge der Erdbeeren darf nicht erhöht werden. Sie darf um die Menge für 20 Kugeln Eis reduziert werden.
+[Grün] Die Menge der Erdbeeren darf nicht erhöht werden. Sie darf um die Menge für 20 Kugeln Eis reduziert werden.
 
+\vspace{4mm}
 \includegraphics[width=.8\linewidth]{src/restriktionen.png}
 
 \end{document}
