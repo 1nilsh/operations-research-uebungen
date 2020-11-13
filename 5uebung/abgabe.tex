@@ -1,0 +1,206 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=28pt]{geometry} % Seitenränder
+
+\usepackage{lmodern,textcomp} % The package supports the Text Companion fonts, which provide many text symbols (benötigt für €)
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+
+\usepackage{cases} % FAllunterscheidungen mathematisch uebereinander
+\usepackage{tikz} % Binaerbaeume
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Lösung \\Übungsblatt 5}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+
+\raggedright % Alles Linksbündig
+
+\section*{Aufgabe 1}
+
+\subsection*{Branch-and-Bound-Algo Abschneidungen von Teilbäumen} 
+\subsubsection*{Kriterien und Erläuterung}
+    Ein Teilbaum kann eine Unzulässigkeit aufweisen oder durch die Erreichung einer Schranke nur noch ineffiziente Verbesserungen der Zielfunktion erzeugen oder bereits Optimalität aufweisen. Bei all diesen Fällen findet eine Abschneidung aller folgenden Teilbäume des statt, weil durch das Hinzufügen von zusätzlichen Restriktionen keine bessere Lösung in den Teilbäumen erreicht werden kann. Jene weiter zu verfolgen wäre eine Vergeudung von Zeit.
+\bigbreak
+
+\section*{Aufgabe 2}
+
+\subsection*{Teilaufgabe a}
+\subsubsection*{Lösung laut Solver}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_a_loesung_solver_decimal.png}
+\end{centering}
+Das Modell erfordert eine Ganzzahligkeit, um die optimale Produktionsmenge zu ermitteln, da nur ganze Geräte produziert und verkauft werden können. 
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_a_loesung_solver_integer.png}
+\end{centering}
+Diese Ganzzahligkeit kann in Lingo definiert werden und stellt als Ergebnis unsere Zielsetzung für die folgenden Teilaufgaben dar. Die Lösung des Modells unter Berücksichtung der Ganzzahligkeit zeigt veränderte Ergebnisse in Ziel und Entscheidungsvariablen.
+\pagebreak
+
+\subsection*{Teilaufgabe b}
+\subsubsection*{Vorgehen}
+Gegebenes Modell der Aufgabenstellung wird mit dem Branch-and-Bound-Algorithmus in einer Tiefensuche mit Links-vor-Rechts-Regel gelöst.
+
+Lösung durch Solver \\
+\textbf{z=668,5714} \\
+\textbf{xs=25,71} (xs steht für Maschine von Typ Standard) \\
+\textbf{xp=0} (xp steht für Maschine von Typ Premium) \\
+
+Beginne mit Selektierung nach größter Fraktalität xs=25,71
+
+\subsubsection*{Binärbaum}
+\begin{tikzpicture}
+    \node[circle,draw](z){$a$}
+        child{
+            node[circle,draw]{b} 
+            child{
+                node[circle,draw] {d} edge from parent node[left,draw=none] {\color{red}$xp \le 0$}
+            }
+            child{
+                node[circle,draw]{e}
+                    child{
+                        node[circle,draw] {f}
+                            child{
+                                node[circle,draw] {h} edge from parent node[left,draw=none] {\color{red}$xp \le 1$}
+                            } 
+                            child{
+                                node[circle,draw] {i} edge from parent node[right,draw=none] {\color{red}$xp \ge 2$}
+                            }  edge from parent node[left,draw=none] {\color{red}$xs \le 24$}
+                    } 
+                    child{
+                        node[circle,draw] {g} edge from parent node[right,draw=none] {\color{red}$xs \ge 25$}
+                    } edge from parent node[right,draw=none] {\color{red}$xp \ge 1$}
+            } edge from parent node[left,draw=none] {\color{red}$xs \le 25$}
+        }
+        child{
+            node[circle,draw]{c} edge from parent node[right,draw=none] {\color{red}$xs \ge 26$}
+        };
+\end{tikzpicture}
+
+\subsubsection*{Solver Lingo}
+
+\subsubsection*{Lösung laut Solver zu Startknoten A}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_b_knoten_a_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösung laut Solver zu Knoten B}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_b_knoten_b_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösung laut Solver zu Knoten D}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_b_knoten_d_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösung laut Solver zu Knoten E}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_b_knoten_e_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösung laut Solver zu Knoten F}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_b_knoten_f_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösung laut Solver zu Knoten H (Optimallösung)}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_b_knoten_h_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösung laut Solver zu Knoten I}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_b_knoten_i_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösungstabelle}
+    \begin{tabular}{ c c c c c }
+        Num & Knoten & zip & L & Operation \\
+        0 & - & $-\infty$ & $\texttt{\{a\}}$ & Start \\
+        1 & a & $-\infty$ & $\texttt{\{b,c\}}$ & - \\
+        2 & b & $-\infty$ & $\texttt{\{c,d,e\}}$ & - \\
+        3 & d & 650 & $\texttt{\{c,e\}}$ & Optimalitätsabschneidung + zip-Ersetzung \\
+        4 & e & 650 & $\texttt{\{c,f,g\}}$ & - \\
+        5 & f & 650 & $\texttt{\{c,h,i,g\}}$ & - \\
+        6 & h & 658 & $\texttt{\{c,i,g\}}$  & Optimalitätsabschneidung + zip-Ersetzung \\
+        7 & i & 658 & $\texttt{\{c,g\}}$ & Schrankenabschneidung \\
+        8 & g & 658 & $\texttt{\{c\}}$ & Unzulässigkeitsabschneidung \\
+        9 & c & 658 & $\texttt{\{\}}$ & Unzulässigkeitsabschneidung \\
+    \end{tabular}
+
+\subsubsection*{Lösungserläuterung}
+Anhand des Teilbaumes h, welcher zip zuletzt gesetzt hat, kann die Produktionsmenge erkannt werden. So sollten für den Optimalfall 24 Standardgeräte und 1 Premiumgerät produziert werden, um dabei den Gewinn auf 658 GE zu maximieren. Die Korrektheit der Lösung ist, wie in Teilaufgabe a angedeutet, durch Lingo mittels Ganzahloperator verifizierbar.
+
+\subsection*{Teilaufgabe c}
+\subsubsection*{Vorgehen}
+Gegebenes Modell der Aufgabenstellung wird mit dem Branch-and-Bound-Algorithmus in einer Breitensuche mit Rechts-vor-Lechts-Regel gelöst.
+
+Lösung durch Solver \\
+\textbf{z=668,5714} \\
+\textbf{xs=25,71} (xs steht für Maschine von Typ Standard) \\
+\textbf{xp=0} (xp steht für Maschine von Typ Premium) \\
+
+Beginne mit Selektierung nach größter Fraktalität xs=25,71
+
+\subsubsection*{Binärbaum}
+
+\begin{tikzpicture}
+    \node[circle,draw](z){$a$}
+        child{
+            node[circle,draw]{b} 
+            child{
+                node[circle,draw] {d} edge from parent node[left,draw=none] {\color{red}$xp \le 0$}
+            }
+            child{
+                node[circle,draw]{e}
+                    child{
+                        node[circle,draw] {f}
+                            child{
+                                node[circle,draw] {h} edge from parent node[left,draw=none] {\color{red}$xp \le 1$}
+                            } 
+                            child{
+                                node[circle,draw] {i} edge from parent node[right,draw=none] {\color{red}$xp \ge 2$}
+                            }  edge from parent node[left,draw=none] {\color{red}$xs \le 24$}
+                    } 
+                    child{
+                        node[circle,draw] {g} edge from parent node[right,draw=none] {\color{red}$xs \ge 25$}
+                    } edge from parent node[right,draw=none] {\color{red}$xp \ge 1$}
+            } edge from parent node[left,draw=none] {\color{red}$xs \le 25$}
+        }
+        child{
+            node[circle,draw]{c} edge from parent node[right,draw=none] {\color{red}$xs \ge 26$}
+        };
+\end{tikzpicture}
+
+\subsubsection*{Knotenergebnisse durch Lingo Solver siehe Teilaufgabe b}
+
+\subsubsection*{Lösungstabelle}
+    \begin{tabular}{ c c c c c }
+        Num & Knoten & zip & L & Operation \\
+        0 & - & $-\infty$ & $\texttt{\{a\}}$ & Start \\
+        1 & a & $-\infty$ & $\texttt{\{b,c\}}$ & - \\
+        2 & c & $-\infty$ & $\texttt{\{b\}}$ & Unzulässigkeitsabschneidung \\
+        3 & b & $-\infty$ & $\texttt{\{d,e\}}$ & - \\
+        4 & e & $-\infty$ & $\texttt{\{d,f,g\}}$ & - \\
+        5 & d & 650 & $\texttt{\{f,g\}}$ & Optimalitätsabschneidung + zip-Ersetzung \\
+        6 & g & 650 & $\texttt{\{f\}}$ & Unzulässigkeitsabschneidung \\
+        7 & f & 650 & $\texttt{\{h,i\}}$ & - \\
+        8 & i & 650 & $\texttt{\{h\}}$ & Schrankenabschneidung \\
+        9 & h & 658 & $\texttt{\{\}}$ &  Optimalitätsabschneidung + zip-Ersetzung \\
+    \end{tabular}
+
+\subsubsection*{Lösungserläuterung}
+Die Anzahl der besuchten Knoten verändert sich in diesem Fall nicht durch die Verwendung der Breitensuche. Auch die Anzahl der Abschneidung und deren Gründe zeigen keine Veränderung.
+
+\end{document}
