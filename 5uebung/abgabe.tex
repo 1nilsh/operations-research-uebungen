@@ -135,8 +135,8 @@ Beginne mit Selektierung nach größter Fraktalität xs=25,71
         5 & f & 650 & $\texttt{\{c,h,i,g\}}$ & - \\
         6 & h & 658 & $\texttt{\{c,i,g\}}$  & Optimalitätsabschneidung + zip-Ersetzung \\
         7 & i & 658 & $\texttt{\{c,g\}}$ & Schrankenabschneidung \\
-        8 & g & 658 & $\texttt{\{c\}}$ & Unzulässigkeitsabschneidung \\
-        9 & c & 658 & $\texttt{\{\}}$ & Unzulässigkeitsabschneidung \\
+        8 & g & 658 & $\texttt{\{c\}}$ & Schrankenabschneidung \\
+        9 & c & 658 & $\texttt{\{\}}$ & Schrankenabschneidung \\
     \end{tabular}
 
 \subsubsection*{Lösungserläuterung}
@@ -170,7 +170,13 @@ Beginne mit Selektierung nach größter Fraktalität xs=25,71
                                 node[circle,draw] {h} edge from parent node[left,draw=none] {\color{red}$xp \le 1$}
                             } 
                             child{
-                                node[circle,draw] {i} edge from parent node[right,draw=none] {\color{red}$xp \ge 2$}
+                                node[circle,draw] {i} 
+                                    child{
+                                    node[circle,draw] {j} edge from parent node[left,draw=none] {\color{red}$xs \le 22$}
+                                    }
+                                    child{
+                                    node[circle,draw] {k} edge from parent node[right,draw=none] {\color{red}$xs \ge 23$}
+                                    } edge from parent node[right,draw=none] {\color{red}$xp \ge 2$}
                             }  edge from parent node[left,draw=none] {\color{red}$xs \le 24$}
                     } 
                     child{
@@ -183,24 +189,35 @@ Beginne mit Selektierung nach größter Fraktalität xs=25,71
         };
 \end{tikzpicture}
 
-\subsubsection*{Knotenergebnisse durch Lingo Solver siehe Teilaufgabe b}
+\subsubsection*{Knotenergebnisse durch Lingo Solver exklusive bereits in Teilaufgabe b}
+\subsubsection*{Lösung laut Solver zu Knoten K}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_c_knoten_k_loesung_solver.png}
+\end{centering}
+
+\subsubsection*{Lösung laut Solver zu Knoten J}
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_5_aufgabe_2_teilaufgabe_c_knoten_j_loesung_solver.png}
+\end{centering}
 
 \subsubsection*{Lösungstabelle}
     \begin{tabular}{ c c c c c }
         Num & Knoten & zip & L & Operation \\
         0 & - & $-\infty$ & $\texttt{\{a\}}$ & Start \\
         1 & a & $-\infty$ & $\texttt{\{b,c\}}$ & - \\
-        2 & c & $-\infty$ & $\texttt{\{b\}}$ & Unzulässigkeitsabschneidung \\
+        2 & c & $-\infty$ & $\texttt{\{b\}}$ & Schrankenabschneidung \\
         3 & b & $-\infty$ & $\texttt{\{d,e\}}$ & - \\
         4 & e & $-\infty$ & $\texttt{\{d,f,g\}}$ & - \\
         5 & d & 650 & $\texttt{\{f,g\}}$ & Optimalitätsabschneidung + zip-Ersetzung \\
-        6 & g & 650 & $\texttt{\{f\}}$ & Unzulässigkeitsabschneidung \\
+        6 & g & 650 & $\texttt{\{f\}}$ & Schrankenabschneidung \\
         7 & f & 650 & $\texttt{\{h,i\}}$ & - \\
-        8 & i & 650 & $\texttt{\{h\}}$ & Schrankenabschneidung \\
-        9 & h & 658 & $\texttt{\{\}}$ &  Optimalitätsabschneidung + zip-Ersetzung \\
+        8 & i & 650 & $\texttt{\{h,k,j\}}$ & Schrankenabschneidung \\
+        9 & h & 658 & $\texttt{\{k,j\}}$ &  Optimalitätsabschneidung + zip-Ersetzung \\
+        10 & k & 658 & $\texttt{\{j\}}$ &  Unzulässigkeitsabschneidung \\
+        11 & j & 658 & $\texttt{\{\}}$ &  Schrankenabschneidung (zip) \\
     \end{tabular}
 
 \subsubsection*{Lösungserläuterung}
-Die Anzahl der besuchten Knoten verändert sich in diesem Fall nicht durch die Verwendung der Breitensuche. Auch die Anzahl der Abschneidung und deren Gründe zeigen keine Veränderung.
+Die Anzahl der besuchten Knoten erhöht sich in diesem Fall durch die Verwendung der Breitensuche, sowie auch die Anzahl der Abschneidungen. Da hier zuerst der Teilbaum i besucht wird, wird nicht wie bei der Tiefensuche bereits abgeschnitten, sondern weitere tiefere Teilbäume müssen betrachtet werden. Der Teilbaum k tritt auf und ergibt eine Unzulässigkeit, wodurch der Teilbaum abgeschnitten wird. Anschließend wird der Teilbaum j wegen eines kleineren zipwertes als Schranke auch abgeschnitten.
 
 \end{document}
