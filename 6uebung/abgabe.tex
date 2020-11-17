@@ -1,0 +1,51 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=28pt]{geometry} % Seitenränder
+
+\usepackage{lmodern,textcomp} % The package supports the Text Companion fonts, which provide many text symbols (benötigt für €)
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+
+\usepackage{cases} % Fallunterscheidungen mathematisch uebereinander
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Lösung \\Übungsblatt 6}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+
+\raggedright % Alles Linksbündig
+
+\section*{Aufgabe 1}
+\subsection*{1.}
+\begin{align*}
+& A \wedge \neg (\neg B \implies C) & \\
+\text{wird zu } & A \wedge \neg (B \vee C) && \big| \text{?} \\
+\text{wird zu } & A \wedge \neg B \wedge \neg C && \big| \text{De-Morgan} \\
+\end{align*}
+
+\subsection*{2.}
+\begin{align*}
+& A \implies B \wedge \neg (C \vee D) & \\
+\text{wird zu } & \neg A \vee B \wedge \neg (C \vee D) && \big| \text{?} \\
+\text{wird zu } &  && \big| \text{} \\
+\end{align*}
+
+\subsection*{3.}
+\begin{align*}
+& \neg(\neg A \wedge B) \vee (C \iff D) & \\
+\text{wird zu } & \neg(\neg A \wedge B) \vee ((C \implies D) \wedge (D \implies C)) && \big| \text{?} \\
+\text{wird zu } & \neg(\neg A \wedge B) \vee ((\neg C \vee D) \wedge (\neg D \vee C)) && \big| \text{?} \\
+\text{wird zu } & ... && \big| \text{?} \\
+\end{align*}
+
+\end{document}
