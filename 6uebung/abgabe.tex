@@ -28,24 +28,42 @@
 \section*{Aufgabe 1}
 \subsection*{1.}
 \begin{align*}
-& A \wedge \neg (\neg B \implies C) & \\
-\text{wird zu } & A \wedge \neg (B \vee C) && \big| \text{?} \\
-\text{wird zu } & A \wedge \neg B \wedge \neg C && \big| \text{De-Morgan} \\
+& A \land \neg (\neg B \implies C) & \\
+\text{wird zu } & A \land \neg (B \lor C) && \big| \text{?} \\
+\text{wird zu } & A \land \neg B \land \neg C && \big| \text{De-Morgan} \\
 \end{align*}
 
 \subsection*{2.}
 \begin{align*}
-& A \implies B \wedge \neg (C \vee D) & \\
-\text{wird zu } & \neg A \vee B \wedge \neg (C \vee D) && \big| \text{?} \\
-\text{wird zu } &  && \big| \text{} \\
+& A \implies B \land \neg (C \lor D) & \\
+\text{wird zu } & \neg A \lor B \land \neg (C \lor D) && \big| \text{?} \\
+\text{wird zu } & \neg A \lor B \land \neg C \land \neg D && \big| \text{} \\
 \end{align*}
 
 \subsection*{3.}
 \begin{align*}
-& \neg(\neg A \wedge B) \vee (C \iff D) & \\
-\text{wird zu } & \neg(\neg A \wedge B) \vee ((C \implies D) \wedge (D \implies C)) && \big| \text{?} \\
-\text{wird zu } & \neg(\neg A \wedge B) \vee ((\neg C \vee D) \wedge (\neg D \vee C)) && \big| \text{?} \\
-\text{wird zu } & ... && \big| \text{?} \\
+& \neg(\neg A \land B) \lor (C \iff D) & \\
+\text{wird zu } & \neg(\neg A \land B) \lor ((C \implies D) \land (D \implies C)) && \big| \text{?} \\
+\text{wird zu } & \neg(\neg A \land B) \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{?} \\
+\text{wird zu } & A \lor \neg B \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{De-Morgan} \\
 \end{align*}
+
+
+\section*{Aufgabe 2}
+\begin{align*}
+\textbf{1. }& P2 \implies P3 \\
+            & \neg P2 \lor P3 \\ \\
+\textbf{2. }& P4 \land P1 \\ \\
+\textbf{3. }& P7 \implies P1 \\
+            & \neg P7 \lor P1 \\ \\
+\textbf{4. }& \neg P6 \\ \\
+\textbf{5. }& P5 \implies (P4 \lor P3) \\
+            & \neg P5 \lor (P4 \lor P3) \\
+            & P5 \land \neg (P4 \lor P3) \\
+            & P5 \land (\neg P4 \land \neg P3)
+\end{align*}
+
+
+\section*{Aufgabe 3}
 
 \end{document}
