@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
 \usepackage[ngerman]{babel} % Change hyphenation rules
 \usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
-\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=28pt]{geometry} % Seitenränder
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=32pt]{geometry} % Seitenränder
 
 \usepackage{lmodern,textcomp} % The package supports the Text Companion fonts, which provide many text symbols (benötigt für €)
 \usepackage[fleqn]{amsmath} % Formatierte Gleichungen
@@ -13,9 +13,14 @@
 
 \usepackage{cases} % Fallunterscheidungen mathematisch uebereinander
 
+\usepackage{floatflt}
+
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{Lösung \\Übungsblatt 6}
+\lhead{
+    Lösung \\
+    Übungsblatt 6
+}
 \rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
 \rfoot{Seite \thepage}
 
@@ -28,42 +33,105 @@
 \section*{Aufgabe 1}
 \subsection*{1.}
 \begin{align*}
-& A \land \neg (\neg B \implies C) & \\
-\text{wird zu } & A \land \neg (B \lor C) && \big| \text{?} \\
-\text{wird zu } & A \land \neg B \land \neg C && \big| \text{De-Morgan} \\
+& A \land \neg (\neg B \to C) & \\
+\Leftrightarrow & A \land \neg (B \lor C) && \big| \text{?} \\
+\Leftrightarrow & A \land \neg B \land \neg C && \big| \text{De-Morgan} \\
 \end{align*}
 
 \subsection*{2.}
 \begin{align*}
-& A \implies B \land \neg (C \lor D) & \\
-\text{wird zu } & \neg A \lor B \land \neg (C \lor D) && \big| \text{?} \\
-\text{wird zu } & \neg A \lor B \land \neg C \land \neg D && \big| \text{} \\
+& A \to B \land \neg (C \lor D) & \\
+\Leftrightarrow & \neg A \lor B \land \neg (C \lor D) && \big| \text{?} \\
+\Leftrightarrow & \neg A \lor B \land \neg C \land \neg D && \big| \text{} \\
 \end{align*}
 
 \subsection*{3.}
 \begin{align*}
-& \neg(\neg A \land B) \lor (C \iff D) & \\
-\text{wird zu } & \neg(\neg A \land B) \lor ((C \implies D) \land (D \implies C)) && \big| \text{?} \\
-\text{wird zu } & \neg(\neg A \land B) \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{?} \\
-\text{wird zu } & A \lor \neg B \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{De-Morgan} \\
+& \neg(\neg A \land B) \lor (C \leftrightarrow D) & \\
+\Leftrightarrow & \neg(\neg A \land B) \lor ((C \to D) \land (D \to C)) && \big| \text{?} \\
+\Leftrightarrow & \neg(\neg A \land B) \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{?} \\
+\Leftrightarrow & A \lor \neg B \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{De-Morgan} \\
 \end{align*}
 
 
 \section*{Aufgabe 2}
 \begin{align*}
-\textbf{1. }& P2 \implies P3 \\
-            & \neg P2 \lor P3 \\ \\
-\textbf{2. }& P4 \land P1 \\ \\
-\textbf{3. }& P7 \implies P1 \\
-            & \neg P7 \lor P1 \\ \\
-\textbf{4. }& \neg P6 \\ \\
-\textbf{5. }& P5 \implies (P4 \lor P3) \\
-            & \neg P5 \lor (P4 \lor P3) \\
-            & P5 \land \neg (P4 \lor P3) \\
-            & P5 \land (\neg P4 \land \neg P3)
+\textbf{1. } & P2 \to P3 \\
+\Leftrightarrow & \neg P2 \lor P3 \\
+\Rightarrow  & (1 - P2) + P3 \ge 1 \\ \\
+%
+\textbf{2. } & P4 \land P1 \\
+\Rightarrow  & P4 + P1 = 2 \\ \\
+%
+\textbf{3. } & P7 \to P1 \\
+\Leftrightarrow & \neg P7 \lor P1 \\
+\Rightarrow  & (1 - P7) + P1 \ge 1 \\ \\
+%
+\textbf{4. } & \neg P6 \\
+\Rightarrow & P6 = 0 \\ \\
+%
+\textbf{5. } & P5 \leftrightarrow (P4 \lor P3) \\
+\Leftrightarrow & (P5 \to (P4 \lor P3)) \land ((P4 \lor P3) \to P5) \\
+\Leftrightarrow & (\neg P5 \lor (P4 \lor P3)) \land (\neg (P4 \lor P3) \lor P5) \\
+\Leftrightarrow & (\neg P5 \lor P4 \lor P3) \land (\neg P4 \land \neg P3 \lor P5) \\
+\Rightarrow & \left\{\begin{array}{l}
+                    -P5 + P4 + P3 \ge 0 \\
+                    -P3 -P4 + P5 \ge 1 \\
+                \end{array}\right.
 \end{align*}
 
 
 \section*{Aufgabe 3}
+
+\subsection*{Binäre Entscheidungsvariablen}
+\begin{align*}
+    A &= \begin{cases}
+        1, & \text{Gebiet A wird erschlossen} \\
+        0, & \text{Gebiet A wird nicht erschlossen}
+    \end{cases} \\
+    B &= \begin{cases}
+        1, & \text{Gebiet B wird erschlossen} \\
+        0, & \text{Gebiet B wird nicht erschlossen}
+    \end{cases} \\
+    C &= \begin{cases}
+        1, & \text{Gebiet C wird erschlossen} \\
+        0, & \text{Gebiet C wird nicht erschlossen}
+    \end{cases} \\
+    D &= \begin{cases}
+        1, & \text{Gebiet D wird erschlossen} \\
+        0, & \text{Gebiet D wird nicht erschlossen}
+    \end{cases} \\
+    E &= \begin{cases}
+        1, & \text{Gebiet E wird erschlossen} \\
+        0, & \text{Gebiet E wird nicht erschlossen}
+    \end{cases} \\
+\end{align*}
+
+
+\pagebreak
+
+\subsection*{Boolsche Restriktionen}
+$B \to A$ \\
+$C \to (A \land B)$ \\
+$E \to D$ \\
+
+\subsection*{Algebraische Restriktionen}
+\textit{In Tagen Bauzeit} \newline
+
+$80A + 200B + 110C + 90D + 70E \le 500$
+
+\subsubsection*{Algebraisch umgeformte boolsche Restriktionen}
+$B - A \le 0$ \\
+$A - C \ge 0$ \\
+$B - C \ge 0$ \\
+$E - D \le 0$ \\
+
+
+\subsection*{Zielfunktion}
+\textit{In TEuro} \newline
+
+\begin{multline*}
+\text{max. Gewinn } z = 1100A + 1200B + 2400C + 1200D + 1300E\\ - (1300A + 1600B + 1200C + 1000D + 900E)
+\end{multline*}
 
 \end{document}
