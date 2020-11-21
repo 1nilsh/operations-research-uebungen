@@ -34,23 +34,25 @@
 \subsection*{1.}
 \begin{align*}
 & A \land \neg (\neg B \to C) & \\
-\Leftrightarrow & A \land \neg (B \lor C) && \big| \text{?} \\
+\Leftrightarrow & A \land \neg (B \lor C) && \big| \text{Implikation auflösen} \\
 \Leftrightarrow & A \land \neg B \land \neg C && \big| \text{De-Morgan} \\
 \end{align*}
 
 \subsection*{2.}
 \begin{align*}
 & A \to B \land \neg (C \lor D) & \\
-\Leftrightarrow & \neg A \lor B \land \neg (C \lor D) && \big| \text{?} \\
-\Leftrightarrow & \neg A \lor B \land \neg C \land \neg D && \big| \text{} \\
+\Leftrightarrow & \neg A \lor B \land \neg (C \lor D) && \big| \text{Implikation auflösen} \\
+\Leftrightarrow & \neg A \lor (B \land \neg C \land \neg D) && \big| \text{De-Morgan \& Klammer f. Sichtbarkeit setzen} \\
+\Leftrightarrow & (\neg A \lor B) \land (\neg A \lor \neg C) \land (\neg A \lor \neg D) && \big| \text{Distributivgesetz anwenden}
 \end{align*}
 
 \subsection*{3.}
 \begin{align*}
 & \neg(\neg A \land B) \lor (C \leftrightarrow D) & \\
-\Leftrightarrow & \neg(\neg A \land B) \lor ((C \to D) \land (D \to C)) && \big| \text{?} \\
-\Leftrightarrow & \neg(\neg A \land B) \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{?} \\
+\Leftrightarrow & \neg(\neg A \land B) \lor ((C \to D) \land (D \to C)) && \big| \text{Äquivalenz zu Implikationen} \\
+\Leftrightarrow & \neg(\neg A \land B) \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{Implikationen auflösen} \\
 \Leftrightarrow & A \lor \neg B \lor ((\neg C \lor D) \land (\neg D \lor C)) && \big| \text{De-Morgan} \\
+\Leftrightarrow & (A \lor \neg B \lor \neg C \lor D) \land (A \lor \neg B \lor \neg D \lor C) && \big| \text{Distributivgesetz anwenden}
 \end{align*}
 
 
@@ -58,25 +60,30 @@
 \begin{align*}
 \textbf{1. } & P2 \to P3 \\
 \Leftrightarrow & \neg P2 \lor P3 \\
-\Rightarrow  & (1 - P2) + P3 \ge 1 \\ \\
+\Rightarrow  & (1 - Y_2) + Y_3 \ge 1 \\ \\
 %
 \textbf{2. } & P4 \land P1 \\
-\Rightarrow  & P4 + P1 = 2 \\ \\
+\Rightarrow  & \left\{\begin{array}{l}
+                    Y_4 = 1 \\
+                    Y_1 = 1 \\
+                \end{array}\right. \\ \\
 %
 \textbf{3. } & P7 \to P1 \\
 \Leftrightarrow & \neg P7 \lor P1 \\
-\Rightarrow  & (1 - P7) + P1 \ge 1 \\ \\
+\Rightarrow  & (1 - Y_7) + Y_1 \ge 1 \\ \\
 %
 \textbf{4. } & \neg P6 \\
-\Rightarrow & P6 = 0 \\ \\
+\Rightarrow & Y_6 = 0 \\ \\
 %
 \textbf{5. } & P5 \leftrightarrow (P4 \lor P3) \\
 \Leftrightarrow & (P5 \to (P4 \lor P3)) \land ((P4 \lor P3) \to P5) \\
 \Leftrightarrow & (\neg P5 \lor (P4 \lor P3)) \land (\neg (P4 \lor P3) \lor P5) \\
 \Leftrightarrow & (\neg P5 \lor P4 \lor P3) \land (\neg P4 \land \neg P3 \lor P5) \\
+\Leftrightarrow & (\neg P5 \lor P4 \lor P3) \land (\neg P4 \lor P5) \land (\neg P3 \lor P5) \\
 \Rightarrow & \left\{\begin{array}{l}
-                    -P5 + P4 + P3 \ge 0 \\
-                    -P3 -P4 + P5 \ge 1 \\
+                    (1-Y_5) + Y_4 + Y_3 \ge 1 \\
+                    (1-Y_4) + Y_5 \ge 1 \\
+                    (1-Y_3) + Y_5 \ge 1 \\
                 \end{array}\right.
 \end{align*}
 
@@ -107,10 +114,11 @@
     \end{cases} \\
 \end{align*}
 
-
 \pagebreak
 
 \subsection*{Boolsche Restriktionen}
+Es wird angenommen $1 \sim wahr$ sowie $0 \sim falsch$. \\
+
 $B \to A$ \\
 $C \to (A \land B)$ \\
 $E \to D$ \\
@@ -125,13 +133,37 @@ $B - A \le 0$ \\
 $A - C \ge 0$ \\
 $B - C \ge 0$ \\
 $E - D \le 0$ \\
+$A, B, C, D, E \in \{0, 1\}$ \\
 
 
 \subsection*{Zielfunktion}
-\textit{In TEuro} \newline
-
+\textit{In TEuro} \\
 \begin{multline*}
 \text{max. Gewinn } z = 1100A + 1200B + 2400C + 1200D + 1300E\\ - (1300A + 1600B + 1200C + 1000D + 900E)
 \end{multline*}
+
+\subsection*{Gesamtes Modell}
+\begin{multline*}
+    \text{max. } z = 1100A + 1200B + 2400C + 1200D + 1300E\\ - (1300A + 1600B + 1200C + 1000D + 900E)
+\end{multline*}
+\begin{align*}
+\text{s.t. } & 80A + 200B + 110C + 90D + 70E \le 500 \\
+& B - A \le 0 \\
+& A - C \ge 0 \\
+& B - C \ge 0 \\
+& E - D \le 0 \\
+& A, B, C, D, E \in \{0, 1\} \\
+\end{align*}
+
+\subsection*{Lösung}
+
+\begin{centering}
+	\includegraphics[width=1\linewidth]{src/blatt_6_aufgabe_3_solverloesung.png}
+\end{centering}
+
+\vspace{6mm}
+
+Bei der Optimallösung werden die Gebiete A, B, C, D erschlossen. E wird nicht erschlossen. Es bleiben 20 Tage Bauzeit ungenutzt (Row 2).\\
+Es ergibt sich ein Gewinn von 800 TEuro.
 
 \end{document}
