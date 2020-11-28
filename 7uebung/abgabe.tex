@@ -30,7 +30,7 @@
 
 \raggedright % Alles Linksbündig
 
-\section{Aufgabe 1}
+\section*{Aufgabe 1}
 
 \subsection*{Entscheidungsvariablen}
 
@@ -97,13 +97,17 @@ $x_{d}$: Produktionsmenge Fahrrad Deluxe in Stück pro Woche \\
 $x_{n}$: Produktionsmenge Fahrrad Normal in Stück pro Woche \\
 
 
-\subsection*{Fooooo changeme!!!}
+\subsection*{Bestimmung der Optima}
 Bestimmung $z_{1}^{\text{Opt}} = 78000$ via Solver \\
 Bestimmung $z_{2}^{\text{Opt}} = 7000$ via Solver \\~\\
-Umformung: \\
-min $z_{2} = 30x_{d} +20x_{n}$ \\
-max $z_{2}^{'} = -30x_{d} -20x_{n}$ \\
-Daher gilt $z_{2}^{'\text{Opt}} = -7000$ \\
+
+\subsubsection*{Umformung}
+\begin{align*}
+\text{min } z_{2} &= 30x_{d} +20x_{n} \\
+\Rightarrow \text{max } z_{2}^{'} &= -30x_{d} -20x_{n} \\
+\end{align*}
+Daher gilt auch $z_{2}^{'\text{Opt}} = -7000$ \\
+
 \vspace{4mm}
 
 \subsubsection*{Solverlösungen}
@@ -128,8 +132,8 @@ Daher gilt $z_{2}^{'\text{Opt}} = -7000$ \\
     \text{min } &z \\~\\
     \text{s.t. } & x_{d} + x_{n} \le 800 && \big|~ \text{Max. Produktionsmenge} \\
     & 12x_{d} + 6x_{n} \le 6000 && \big|~ \text{Max. verfügbare Zeit} \\
-    & -30x_{d} -20 * x_{n} + v_{1} = -7000 && \big|~ \text{Einsetzen $z_{2}^{'}$ mit $z_{2}^{'Opt}$ } \\
-    & 120x_{d} + 90 * x_{n} + v_{2} = 78000 && \big|~ \text{Einsetzen $z_{1}$ mit $z_{1}^{Opt}$ } \\
+    & -30x_{d} -20x_{n} + v_{1} = -7000 && \big|~ \text{Einsetzen $z_{2}^{'}$ mit $z_{2}^{'Opt}$ } \\
+    & 120x_{d} + 90x_{n} + v_{2} = 78000 && \big|~ \text{Einsetzen $z_{1}$ mit $z_{1}^{Opt}$ } \\
     & x_{d} \le 400 && \big|~ \text{Max Anzahl Deluxe pro Woche} \\
     & x_{n} \le 700 && \big|~ \text{Max Anzahl Normal pro Woche} \\
     & x_{d} \ge 100 && \big|~ \text{Min Anzahl Deluxe pro Woche} \\
