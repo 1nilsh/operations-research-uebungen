@@ -12,6 +12,8 @@
 \usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
 \usepackage{cases} % Fallunterscheidungen mathematisch uebereinander
 
+\usepackage{amsfonts} % Fonts für natürliche Zahlen N
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sourcecode Darstellung %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,6 +50,9 @@
 
 \lstset{style=mystyle} % Oben definierten Style als Standard
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% /Sourcecode Darstellung %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \pagestyle{fancy}
@@ -74,11 +79,11 @@ $P:$ Menge der Produkte \\
 \subsection*{Parameter}
 
 \begin{align*}
-  d_p :&~ \text{Umsatz mit Produkt $p \in P$} \\
-  h_p :&~ \text{Benötigtes Holz für Produkt $p \in P$} \\
-  s_p :&~ \text{Schreinerkosten für Produkt $p \in P$} \\
-  l_p :&~ \text{Lackiererkosten für Produkt $p \in P$} \\
-  h_{max} :&~ \text{Höchstmenge Holz/Woche (kg)}
+  d_p :&~ \text{Erlös von Produkt $p \in P$ (in EUR)} \\
+  h_p :&~ \text{Benötigtes Holz für Produkt $p \in P$ (in kg)} \\
+  s_p :&~ \text{Schreinerkosten für Produkt $p \in P$ (in EUR)} \\
+  l_p :&~ \text{Lackiererkosten für Produkt $p \in P$ (in EUR)} \\
+  h_{max} :&~ \text{Höchstmenge Holz/Woche (in kg)}
 \end{align*}
 
 \subsection*{Entscheidungsvariablen}
@@ -90,7 +95,7 @@ $P:$ Menge der Produkte \\
 \subsection*{Zielfunktion}
 
 \begin{align*}
-  \text{max.} ~ \sum x_p * (d_p - s_p - l_p)
+  \text{max.} ~ \sum x_p * (d_p - s_p - l_p) ~|~ p \in P
 \end{align*}
 
 \subsection*{Restriktionen}
@@ -98,11 +103,12 @@ $P:$ Menge der Produkte \\
 \begin{align*}
   \forall p \in P : \sum x_p * h_p &\le h_{max} &&~\big|~ \text{Höchstmenge Holz/Woche} \\
   \forall p \in P : x_p &\ge 0 &&~\big|~ \text{NNB} \\
+  x \in \mathbb{N} &&&~\big|~ \text{Nur ganze Möbel}
 \end{align*}
 
 \subsection*{AMPL}
 
-\subsubsection*{.mod Datei}
+\subsubsection*{gartenmoebel.mod}
 
 \begin{lstlisting}[]
   set P;
@@ -111,18 +117,49 @@ $P:$ Menge der Produkte \\
   param s{P};
   param l{P};
   param hmax;
-  var y{P};
+  var x{P} integer;
 
   maximize profit: sum{p in P} (x[p] * (d[p] - s[p] - l[p]));
   subject to maxHolz: sum{p in P} x[p] * h[p] <= hmax;
+  subject to NBB {p in P}: x[p] >= 0;
 \end{lstlisting}
-
 \vspace{10mm}
 
-\subsubsection*{.dat Datei}
+\pagebreak
+
+\subsubsection*{gartenmoebel.dat}
 
 \begin{lstlisting}[]
-
+  set P := Stuhl Bank Liegestuhl;
+  param: d h s l := 
+    Stuhl 160 8 72 10
+    Bank 350 17 108 20
+    Liegestuhl 210 12 96 20;
+  param hmax := 15000;
 \end{lstlisting}
+\vspace{10mm}
+
+\subsubsection*{Ergebnis}
+
+\begin{lstlisting}[]
+  sw: ampl
+  ampl: model gartenmoebel.mod
+  ampl: data gartenmoebel.dat
+  ampl: option solver Gurobi;
+  ampl: solve;
+  Gurobi 9.0.3: optimal solution; objective 195804
+  2 simplex iterations
+  1 branch-and-cut nodes
+  ampl: display: x;
+  x [*] :=
+        Bank  882
+  Liegestuhl    0
+       Stuhl    0
+  ;
+\end{lstlisting}
+\vspace{10mm}
+
+Der Solver ermittelt einen Gewinn von 195.804,00 € \\
+Es werden 882 Bänke, keine Liegestühle und keine Stühle produziert. \\
 
 \end{document}
