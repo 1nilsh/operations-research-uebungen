@@ -10,10 +10,45 @@
 \usepackage{graphicx} % Grafiken
 \usepackage{xcolor} % Farbe in Text
 \usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
-
 \usepackage{cases} % Fallunterscheidungen mathematisch uebereinander
 
-\usepackage{floatflt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sourcecode Darstellung %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\renewcommand\lstlistingname{Quellcode} % Bezeichnung unter einzelnem Listing
+\renewcommand\lstlistlistingname{Quellcodeverzeichnis} % Überschrift des Verzeichnisses
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle} % Oben definierten Style als Standard
+
+
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -32,6 +67,62 @@
 
 \section*{Aufgabe 1}
 
-Lorem Ipsum...
+\subsection*{Indexmenge}
+
+$P:$ Menge der Produkte \\
+
+\subsection*{Parameter}
+
+\begin{align*}
+  d_p :&~ \text{Umsatz mit Produkt $p \in P$} \\
+  h_p :&~ \text{Benötigtes Holz für Produkt $p \in P$} \\
+  s_p :&~ \text{Schreinerkosten für Produkt $p \in P$} \\
+  l_p :&~ \text{Lackiererkosten für Produkt $p \in P$} \\
+  h_{max} :&~ \text{Höchstmenge Holz/Woche (kg)}
+\end{align*}
+
+\subsection*{Entscheidungsvariablen}
+
+\begin{align*}
+  x_p :&~ \text{Produktion pro Woche von Produkt $p \in P$}
+\end{align*}
+
+\subsection*{Zielfunktion}
+
+\begin{align*}
+  \text{max.} ~ \sum x_p * (d_p - s_p - l_p)
+\end{align*}
+
+\subsection*{Restriktionen}
+
+\begin{align*}
+  \forall p \in P : \sum x_p * h_p &\le h_{max} &&~\big|~ \text{Höchstmenge Holz/Woche} \\
+  \forall p \in P : x_p &\ge 0 &&~\big|~ \text{NNB} \\
+\end{align*}
+
+\subsection*{AMPL}
+
+\subsubsection*{.mod Datei}
+
+\begin{lstlisting}[]
+  set P;
+  param d{P};
+  param h{P};
+  param s{P};
+  param l{P};
+  param hmax;
+  var y{P};
+
+  maximize profit: sum{p in P} (x[p] * (d[p] - s[p] - l[p]));
+  subject to maxHolz: sum{p in P} x[p] * h[p] <= hmax;
+\end{lstlisting}
+
+\vspace{10mm}
+
+\subsubsection*{.dat Datei}
+
+\begin{lstlisting}[]
+
+\end{lstlisting}
 
 \end{document}
