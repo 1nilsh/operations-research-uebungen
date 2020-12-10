@@ -5,13 +5,14 @@
 \usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
 \usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=32pt]{geometry} % Seitenränder
 
-\usepackage{lmodern,textcomp} % The package supports the Text Companion fonts, which provide many text symbols (benötigt für €)
+\usepackage{lmodern,textcomp,amsfonts} % The package supports the Text Companion fonts, which provide many text symbols
 \usepackage[fleqn]{amsmath} % Formatierte Gleichungen
 \usepackage{graphicx} % Grafiken
 \usepackage{xcolor} % Farbe in Text
 \usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
-\usepackage{cases} % Fallunterscheidungen mathematisch uebereinander
-\usepackage{amsfonts} % Fonts für €-Zeichen und weitere Symbole
+\usepackage{cases} % Fallunterscheidungen mathematisch übereinander
+
+\usepackage{multicol} % Zweispaltiges Layout
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -30,7 +31,193 @@
 
 \section*{Aufgabe 1}
 
+{\setlength{\columnseprule}{.1pt}
+\setlength{\columnsep}{3cm}
+\begin{multicols}{2}
+
+\textbf{Step 0} \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ A \} \\
+  \hline
+  S & \{  \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
+  \hline
+  v(j) & - &  &  &  &  &  &  \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+\textbf{Step 1} \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ B, C, D \} \\
+  \hline
+  S & \{ A \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & 5 & 3 & 2 & $\infty$ & $\infty$ & $\infty$ \\
+  \hline
+  v(j) & - & A & A & A &  &  &  \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+\textbf{Step 2} Günstigstes d(j): A$\to$D \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ B, C \} \\
+  \hline
+  S & \{ A, D \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & 5 & 3 & 2 & $\infty$ & $\infty$ & $\infty$ \\
+  \hline
+  v(j) & - & A & A & A &  &  &  \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+\textbf{Step 3} Günstigstes d(j): D$\to$C \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ B, E \} \\
+  \hline
+  S & \{ A, D, C \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & 4 & 3 & 2 & 5 & $\infty$ & $\infty$ \\
+  \hline
+  v(j) & - & C & A & A & C &  &  \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+\columnbreak
+
+\textbf{Step 4} Günstigstes d(j): C$\to$B \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ E, F, G \} \\
+  \hline
+  S & \{ A, D, C, B \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & 4 & 3 & 2 & 5 & 7 & 5 \\
+  \hline
+  v(j) & - & C & A & A & C & B & B \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+\textbf{Step 5} Günstigstes d(j): B$\to$E \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ F, G \} \\
+  \hline
+  S & \{ A, D, C, B, E \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & 4 & 3 & 2 & 5 & 6 & 5 \\
+  \hline
+  v(j) & - & C & A & A & C & E & B \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+\textbf{Step 6} Günstigstes d(j): E$\to$F \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ G \} \\
+  \hline
+  S & \{ A, D, C, B, E, F \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & 4 & 3 & 2 & 5 & 6 & 5 \\
+  \hline
+  v(j) & - & C & A & A & C & E & B \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+Von F führt keine Kante weiter zu einem anderen Knoten.
+
+\end{multicols}}
+\vspace{10mm}
+
 
 \section*{Aufgabe 2}
+
+\subsection*{Entscheidungsvariablen}
+Hmm
+
+\subsection*{Zielfunktion}
+\begin{align*}
+  \text{min. } z =~ 
+    &  1x_{v_1 v_2} \\
+    &+ 2x_{v_1 u_1} \\
+    &+ 3x_{v_1 k_1} \\
+    &+ 1x_{v_1 u_2} \\
+    &+ 2x_{v_2 u_1} \\
+    &+ 4x_{v_2 k_3} \\
+    &+ 2x_{v_2 u_3} \\
+    &+ 2x_{u_1 k_1} \\
+    &+ 1x_{u_2 k_1} \\
+    &+ 3x_{u_2 k_2} \\
+    &+ 5x_{u_3 k_1} \\
+    &+ 2x_{u_3 k_2} \\
+    &+ 1x_{u_3 k_3} \\
+    &+ 1x_{k_1 k_2} \\
+    &+ 2x_{k_2 k_3} \\
+\end{align*}
+
+\subsection*{Restriktionen}
+\begin{align*}
+    x_{v_1 v_2},
+    x_{v_1 u_1},
+    x_{v_1 k_1},
+    x_{v_1 u_2},
+    x_{v_2 u_1},
+    x_{v_2 k_3},
+    x_{v_2 u_3},
+    x_{u_1 k_1},
+    x_{u_2 k_1},
+    x_{u_2 k_2},
+    x_{u_3 k_1},
+    x_{u_3 k_2},
+    x_{u_3 k_3},
+    x_{k_1 k_2},
+    x_{k_2 k_3} \ge 0 \\
+\end{align*}
 
 \end{document}
