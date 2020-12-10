@@ -1,0 +1,165 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=32pt]{geometry} % Seitenränder
+
+\usepackage{lmodern,textcomp} % The package supports the Text Companion fonts, which provide many text symbols (benötigt für €)
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+\usepackage{cases} % Fallunterscheidungen mathematisch uebereinander
+
+\usepackage{amsfonts} % Fonts für natürliche Zahlen N
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sourcecode Darstellung %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\renewcommand\lstlistingname{Quellcode} % Bezeichnung unter einzelnem Listing
+\renewcommand\lstlistlistingname{Quellcodeverzeichnis} % Überschrift des Verzeichnisses
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle} % Oben definierten Style als Standard
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% /Sourcecode Darstellung %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{
+    Lösung \\
+    Übungsblatt 8
+}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+
+\raggedright % Alles Linksbündig
+
+\section*{Aufgabe 1}
+
+\subsection*{Indexmenge}
+
+$P:$ Menge der Produkte \\
+
+\subsection*{Parameter}
+
+\begin{align*}
+  d_p :&~ \text{Erlös von Produkt $p \in P$ (in EUR)} \\
+  h_p :&~ \text{Benötigtes Holz für Produkt $p \in P$ (in kg)} \\
+  s_p :&~ \text{Schreinerkosten für Produkt $p \in P$ (in EUR)} \\
+  l_p :&~ \text{Lackiererkosten für Produkt $p \in P$ (in EUR)} \\
+  h_{max} :&~ \text{Höchstmenge Holz/Woche (in kg)}
+\end{align*}
+
+\subsection*{Entscheidungsvariablen}
+
+\begin{align*}
+  x_p :&~ \text{Produktion pro Woche von Produkt $p \in P$}
+\end{align*}
+
+\subsection*{Zielfunktion}
+
+\begin{align*}
+  \text{max.} ~ \sum x_p * (d_p - s_p - l_p) ~|~ p \in P
+\end{align*}
+
+\subsection*{Restriktionen}
+
+\begin{align*}
+  \forall p \in P : \sum x_p * h_p &\le h_{max} &&~\big|~ \text{Höchstmenge Holz/Woche} \\
+  \forall p \in P : x_p &\ge 0 &&~\big|~ \text{NNB} \\
+  x \in \mathbb{N} &&&~\big|~ \text{Nur ganze Möbel}
+\end{align*}
+
+\subsection*{AMPL}
+
+\subsubsection*{gartenmoebel.mod}
+
+\begin{lstlisting}[]
+  set P;
+  param d{P};
+  param h{P};
+  param s{P};
+  param l{P};
+  param hmax;
+  var x{P} integer;
+
+  maximize profit: sum{p in P} (x[p] * (d[p] - s[p] - l[p]));
+  subject to maxHolz: sum{p in P} x[p] * h[p] <= hmax;
+  subject to NBB {p in P}: x[p] >= 0;
+\end{lstlisting}
+\vspace{10mm}
+
+\pagebreak
+
+\subsubsection*{gartenmoebel.dat}
+
+\begin{lstlisting}[]
+  set P := Stuhl Bank Liegestuhl;
+  param: d h s l := 
+    Stuhl 160 8 72 10
+    Bank 350 17 108 20
+    Liegestuhl 210 12 96 20;
+  param hmax := 15000;
+\end{lstlisting}
+\vspace{10mm}
+
+\subsubsection*{Ergebnis}
+
+\begin{lstlisting}[]
+  sw: ampl
+  ampl: model gartenmoebel.mod
+  ampl: data gartenmoebel.dat
+  ampl: option solver Gurobi;
+  ampl: solve;
+  Gurobi 9.0.3: optimal solution; objective 195804
+  2 simplex iterations
+  1 branch-and-cut nodes
+  ampl: display: x;
+  x [*] :=
+        Bank  882
+  Liegestuhl    0
+       Stuhl    0
+  ;
+\end{lstlisting}
+\vspace{10mm}
+
+Der Solver ermittelt einen Gewinn von 195.804,00 € \\
+Es werden 882 Bänke, keine Liegestühle und keine Stühle produziert. \\
+
+\end{document}
