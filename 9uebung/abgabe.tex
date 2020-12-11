@@ -28,6 +28,7 @@
 \begin{document}
 
 \raggedright % Alles Linksbündig
+\setlength{\mathindent}{0cm} % align* nicht eingerückt
 
 \section*{Aufgabe 1}
 
@@ -179,45 +180,84 @@ Von F führt keine Kante weiter zu einem anderen Knoten.
 \section*{Aufgabe 2}
 
 \subsection*{Entscheidungsvariablen}
-Hmm
+$x_{i j}$ : Menge der über die Kante $(i,j) \in A$ zu transportierenden Einheiten, wobei A die Menge aller Kanten ist.
 
 \subsection*{Zielfunktion}
-\begin{align*}
+\begin{multline*}
   \text{min. } z =~ 
-    &  1x_{v_1 v_2} \\
-    &+ 2x_{v_1 u_1} \\
-    &+ 3x_{v_1 k_1} \\
-    &+ 1x_{v_1 u_2} \\
-    &+ 2x_{v_2 u_1} \\
-    &+ 4x_{v_2 k_3} \\
-    &+ 2x_{v_2 u_3} \\
-    &+ 2x_{u_1 k_1} \\
-    &+ 1x_{u_2 k_1} \\
-    &+ 3x_{u_2 k_2} \\
-    &+ 5x_{u_3 k_1} \\
-    &+ 2x_{u_3 k_2} \\
-    &+ 1x_{u_3 k_3} \\
-    &+ 1x_{k_1 k_2} \\
-    &+ 2x_{k_2 k_3} \\
-\end{align*}
+      1x_{v_1 v_2}
+    + 2x_{v_1 u_1}
+    + 3x_{v_1 k_1}
+    + 1x_{v_1 u_2}
+    + 2x_{v_2 u_1}
+    + 4x_{v_2 k_3} \\
+    + 2x_{v_2 u_3}
+    + 2x_{u_1 k_1}
+    + 1x_{u_2 k_1}
+    + 3x_{u_2 k_2}
+    + 5x_{u_3 k_1}
+    + 2x_{u_3 k_2}
+    + 1x_{u_3 k_3}
+    + 1x_{k_1 k_2}
+    + 2x_{k_2 k_3}
+\end{multline*}
 
 \subsection*{Restriktionen}
 \begin{align*}
-    x_{v_1 v_2},
-    x_{v_1 u_1},
-    x_{v_1 k_1},
-    x_{v_1 u_2},
-    x_{v_2 u_1},
-    x_{v_2 k_3},
-    x_{v_2 u_3},
-    x_{u_1 k_1},
-    x_{u_2 k_1},
-    x_{u_2 k_2},
-    x_{u_3 k_1},
-    x_{u_3 k_2},
-    x_{u_3 k_3},
-    x_{k_1 k_2},
-    x_{k_2 k_3} \ge 0 \\
+\text{s.t. }
+& x_{v_1 v_2} + x_{v_1 u_1} + x_{v_1 k_1} + x_{v_1 u_2} = 20 \\ % Abflüsse v1
+& x_{v_2 u_1} + x_{v_2 k_3} + x_{v_2 u_3} - x_{v_1 v_2} = 10 \\ % Abflüsse - Zufluss v2
+& x_{v_1 u_1} + x_{v_2 u_1} - x_{u_1 k_1} = 0 \\ % Zuflüsse - Abflüsse u1
+& x_{v_1 u_2} - x_{u_2 k_1} - x_{u_2 k_2} = 0 \\ % Zuflüsse - Abflüsse u2
+& x_{v_2 u_3} - x_{u_3 k_1} - x_{u_3 k_2} - x_{u_3 k_3} = 0 \\ % Zuflüsse - Abflüsse u3
+& x_{u_1 k_1} + x_{v_1 k_1} + x_{u_2 k_1} + x_{u_3 k_1} - x_{k_1 k_2} = 5 \\ % Zuflüsse - Abflüsse k1
+& x_{u_2 k_2} + x_{u_3 k_2} + x_{k_1 k_2} - x_{k_2 k_3} = 15 \\ % Zuflüsse - Abflüsse k2
+& x_{v_2 k_3} + x_{u_3 k_3} + x_{k_2 k_3} = 10 \\ % Zuflüsse k3
+& x_{v_1 v_2} \le 8 \\ % Durchflüsse
+& x_{v_1 u_1} \le 9 \\ % Durchflüsse
+& x_{v_1 k_1} \le 6 \\ % Durchflüsse
+& x_{v_1 u_2} \le 5 \\ % Durchflüsse
+& x_{v_2 u_1} \le 7 \\ % Durchflüsse
+& x_{v_2 k_3} \le 4 \\ % Durchflüsse
+& x_{v_2 u_3} \le 5 \\ % Durchflüsse
+& x_{u_1 k_1} \le 9 \\ % Durchflüsse
+& x_{u_2 k_1} \le 6 \\ % Durchflüsse
+& x_{u_2 k_2} \le 8 \\ % Durchflüsse
+& x_{u_3 k_1} \le 4 \\ % Durchflüsse
+& x_{u_3 k_2} \le 6 \\ % Durchflüsse
+& x_{u_3 k_3} \le 4 \\ % Durchflüsse
+& x_{k_1 k_2} \le 7 \\ % Durchflüsse
+& x_{k_2 k_3} \le 3 \\ % Durchflüsse
+& x_{v_1 v_2},
+  x_{v_1 u_1},
+  x_{v_1 k_1},
+  x_{v_1 u_2},
+  x_{v_2 u_1},
+  x_{v_2 k_3},
+  x_{v_2 u_3},
+  x_{u_1 k_1},
+  x_{u_2 k_1},
+  x_{u_2 k_2},
+  x_{u_3 k_1},
+  x_{u_3 k_2},
+  x_{u_3 k_3},
+  x_{k_1 k_2},
+  x_{k_2 k_3} \ge 0 \\ % NNB
+& x_{v_1 v_2},
+  x_{v_1 u_1},
+  x_{v_1 k_1},
+  x_{v_1 u_2},
+  x_{v_2 u_1},
+  x_{v_2 k_3},
+  x_{v_2 u_3},
+  x_{u_1 k_1},
+  x_{u_2 k_1},
+  x_{u_2 k_2},
+  x_{u_3 k_1},
+  x_{u_3 k_2},
+  x_{u_3 k_3},
+  x_{k_1 k_2},
+  x_{k_2 k_3} \in \mathbb{Z} % integer
 \end{align*}
 
 \end{document}
