@@ -74,7 +74,9 @@
 \end{tabular}
 \vspace{4mm}
 
-\textbf{Step 2} Günstigstes d(j): A$\to$D \\
+Günstigstes d(j): D \\
+
+\textbf{Step 2} \\
 \begin{tabular}{ |c|c| } 
   \hline
   B & \{ B, C \} \\
@@ -93,7 +95,9 @@
 \end{tabular}
 \vspace{4mm}
 
-\textbf{Step 3} Günstigstes d(j): D$\to$C \\
+Günstigstes d(j): C \\
+
+\textbf{Step 3} \\
 \begin{tabular}{ |c|c| } 
   \hline
   B & \{ B, E \} \\
@@ -112,9 +116,11 @@
 \end{tabular}
 \vspace{4mm}
 
+Günstigstes d(j): B \\
+
 \columnbreak
 
-\textbf{Step 4} Günstigstes d(j): C$\to$B \\
+\textbf{Step 4} \\
 \begin{tabular}{ |c|c| } 
   \hline
   B & \{ E, F, G \} \\
@@ -133,7 +139,9 @@
 \end{tabular}
 \vspace{4mm}
 
-\textbf{Step 5} Günstigstes d(j): B$\to$E \\
+Günstigstes d(j): E \\
+
+\textbf{Step 5} \\
 \begin{tabular}{ |c|c| } 
   \hline
   B & \{ F, G \} \\
@@ -152,12 +160,14 @@
 \end{tabular}
 \vspace{4mm}
 
-\textbf{Step 6} Günstigstes d(j): E$\to$F \\
+Günstigstes d(j): G \\
+
+\textbf{Step 6} \\
 \begin{tabular}{ |c|c| } 
   \hline
-  B & \{ G \} \\
+  B & \{ F \} \\
   \hline
-  S & \{ A, D, C, B, E, F \} \\ 
+  S & \{ A, D, C, B, E, G \} \\ 
   \hline
  \end{tabular} \\
 \begin{tabular}{ |c|c|c|c|c|c|c|c| } 
@@ -171,7 +181,29 @@
 \end{tabular}
 \vspace{4mm}
 
-Von F führt keine Kante weiter zu einem anderen Knoten.
+Günstigstes d(j): F \\
+
+\textbf{Step 7} \\
+\begin{tabular}{ |c|c| } 
+  \hline
+  B & \{ \} \\
+  \hline
+  S & \{ A, D, C, B, E, G, F \} \\ 
+  \hline
+ \end{tabular} \\
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+  \hline
+       & A & B & C & D & E & F & G \\
+  \hline
+  d(j) & 0 & 4 & 3 & 2 & 5 & 6 & 5 \\
+  \hline
+  v(j) & - & C & A & A & C & E & B \\
+  \hline
+\end{tabular}
+\vspace{4mm}
+
+Die Menge B ist nun Leer; \\
+$\to$ Abbruchbedingung.
 
 \end{multicols}}
 \vspace{10mm}
@@ -180,8 +212,12 @@ Von F führt keine Kante weiter zu einem anderen Knoten.
 \section*{Aufgabe 2}
 
 \subsection*{Entscheidungsvariablen}
-$x_{i j}$ : Menge der über die Kante $(i,j) \in A$ zu transportierenden Einheiten, wobei A die Menge aller Kanten ist.
-
+$x_{i j}$ : Menge der über die Kante $(i,j) \in A$ zu transportierenden Einheiten (in Stk.), wobei A die Menge aller Kanten
+\begin{multline*}
+A = \{(v_1, v_2),(v_1, u_1),(v_1, k_1),(v_1, u_2),(v_2, u_1),\\
+(v_2, k_3),(v_2, u_3),(u_1, k_1),(u_2, k_1),(u_2, k_2),(u_3, k_1),(u_3, k_2),(u_3, k_3),(k_1, k_2),(k_2, k_3)\}
+\end{multline*}
+ist. \\
 \subsection*{Zielfunktion}
 \begin{multline*}
   \text{min. } z =~ 
@@ -259,5 +295,9 @@ $x_{i j}$ : Menge der über die Kante $(i,j) \in A$ zu transportierenden Einheit
   x_{k_1 k_2},
   x_{k_2 k_3} \in \mathbb{Z} % integer
 \end{align*}
+
+\vspace{4mm}
+
+Das Problem geht nicht auf, da der Bedarf von $k_2$ und $k_3$ bei den gegebenen Restriktionen nicht gleichzeitig gedeckt werden kann.
 
 \end{document}
