@@ -33,6 +33,7 @@
 
 \section*{Aufgabe 1}
 
+\subsection*{Ausgangsmodell}
 \begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
   \node[main] (1) []            { A };
   \node[main] (2) [below of=1]  { B };
@@ -54,6 +55,147 @@
 
   \draw[->] (5) -- node[midway] {9 (0, 6)} (6);
 \end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Ungerichtete Kanten umformen}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A };
+  \node[main] (2) [below of=1]  { B };
+  \node[main] (3) [right of=2]  { C }; 
+  \node[main] (4) [right of=1]  { D };
+  \node[main] (5) [right of=4]  { E }; 
+  \node[main] (6) [right of=3]  { F };
+
+  \draw[->] (1) -- node[midway] {7 (1, 5)} (2);
+  \draw[->] (1) -- node[midway] {8 (4, 11)} (4);
+
+  \draw[->] (2) -- node[midway] {3 (1, 6)} (3);
+
+  \draw[->] (3) -- node[midway] {6 (1, 5)} (5);
+  \draw[->] (3) -- node[midway] {11 (0, 7)} (6);
+
+  \draw[->] (4) -- node[midway] {-5 (3, 8)} (3);
+  \draw[->] (4) -- node[midway] {2 (0, 4)} (5);
+  \draw[<-] (4) to [looseness=1] node[midway] {2 (0, 4)} (5);
+
+  \draw[->] (5) -- node[midway] {9 (0, 6)} (6);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Untere Schranken = 0}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (9) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (3) }; 
+  \node[main] (4) [right of=1]  { D (1) };
+  \node[main] (5) [right of=4]  { E (1) }; 
+  \node[main] (6) [right of=3]  { F (-14) };
+
+  \draw[->] (1) -- node[midway] {7 (0, 4)} (2);
+  \draw[->] (1) -- node[midway] {8 (0, 7)} (4);
+
+  \draw[->] (2) -- node[midway] {3 (0, 5)} (3);
+
+  \draw[->] (3) -- node[midway] {6 (0, 4)} (5);
+  \draw[->] (3) -- node[midway] {11 (0, 7)} (6);
+
+  \draw[->] (4) -- node[midway] {-5 (0, 5)} (3);
+  \draw[->] (4) -- node[midway] {2 (0, 4)} (5);
+  \draw[<-] (4) to [looseness=1] node[midway] {2 (0, 4)} (5);
+
+  \draw[->] (5) -- node[midway] {9 (0, 6)} (6);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Alle Kosten $\ge 0$}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (9) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (8) }; 
+  \node[main] (4) [right of=1]  { D (-4) };
+  \node[main] (5) [right of=4]  { E (1) }; 
+  \node[main] (6) [right of=3]  { F (-14) };
+
+  \draw[->] (1) -- node[midway] {7 (0, 4)} (2);
+  \draw[->] (1) -- node[midway] {8 (0, 7)} (4);
+
+  \draw[->] (2) -- node[midway] {3 (0, 5)} (3);
+
+  \draw[->] (3) -- node[midway] {6 (0, 4)} (5);
+  \draw[->] (3) -- node[midway] {11 (0, 7)} (6);
+
+  \draw[<-] (4) -- node[midway] {5 (0, 5)} (3);
+  \draw[->] (4) -- node[midway] {2 (0, 4)} (5);
+  \draw[<-] (4) to [looseness=1] node[midway] {2 (0, 4)} (5);
+
+  \draw[->] (5) -- node[midway] {9 (0, 6)} (6);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Asymmetrie herstellen}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (9) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (8) }; 
+  \node[main] (4) [right of=1]  { D (-4) };
+  \node[main] (5) [right of=4]  { E (1) }; 
+  \node[main] (6) [right of=3]  { F (-14) };
+  \node[main] (7) [above right of=4]  { DE (0) };
+
+  \draw[->] (1) -- node[midway] {7 (0, 4)} (2);
+  \draw[->] (1) -- node[midway] {8 (0, 7)} (4);
+
+  \draw[->] (2) -- node[midway] {3 (0, 5)} (3);
+
+  \draw[->] (3) -- node[midway] {6 (0, 4)} (5);
+  \draw[->] (3) -- node[midway] {11 (0, 7)} (6);
+
+  \draw[<-] (4) -- node[midway] {5 (0, 5)} (3);
+  \draw[->] (4) -- node[midway] {2 (0, 4)} (5);
+
+  \draw[->] (5) -- node[midway] {9 (0, 6)} (6);
+  \draw[->] (5) -- node[midway] {0 (0, 4)} (7);
+
+  \draw[->] (7) -- node[midway] {2 (0, 4)} (4);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Eine Quelle und eine Senke}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (0) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (0) }; 
+  \node[main] (4) [right of=1]  { D (0) };
+  \node[main] (5) [right of=4]  { E (0) }; 
+  \node[main] (6) [right of=3]  { F (0) };
+  \node[main] (7) [above right of=4]  { DE (0) };
+  \node[main] (8) [above left of=1]  { s (18) }; % Superquelle
+  \node[main] (9) [below right of=6]  { t (-18) }; % Supersenke
+
+  \draw[->] (1) -- node[midway] {7 (0, 4)} (2);
+  \draw[->] (1) -- node[midway] {8 (0, 7)} (4);
+
+  \draw[->] (2) -- node[midway] {3 (0, 5)} (3);
+
+  \draw[->] (3) -- node[midway] {6 (0, 4)} (5);
+  \draw[->] (3) -- node[midway] {11 (0, 7)} (6);
+
+  \draw[<-] (4) -- node[midway] {5 (0, 5)} (3);
+  \draw[->] (4) -- node[midway] {2 (0, 4)} (5);
+
+  \draw[->] (5) -- node[midway] {9 (0, 6)} (6);
+  \draw[->] (5) -- node[midway] {0 (0, 4)} (7);
+
+  \draw[->] (7) -- node[midway] {2 (0, 4)} (4);
+
+  \draw[->] (8) -- node[midway] {0 (0, 9)} (1);
+  \draw[->] (8) to [looseness=1] node[midway] {0 (0, 8)} (3);
+  \draw[->] (8) to [looseness=1] node[midway] {0 (0, 1)} (5);
+
+  \draw[<-] (9) -- node[midway] {0 (0, 14)} (6);
+  \draw[<-] (9) to [out=180, in=300, looseness=2] node[midway] {0 (0, 4)} (4);
+\end{tikzpicture}
+\vspace{10mm}
 
 
 \section*{Aufgabe 2}
