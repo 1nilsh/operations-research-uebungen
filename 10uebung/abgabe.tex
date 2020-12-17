@@ -12,6 +12,9 @@
 \usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
 \usepackage{cases} % Fallunterscheidungen mathematisch übereinander
 
+\usepackage{tikz} % Graphen
+\usetikzlibrary{positioning}
+
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{
@@ -30,11 +33,86 @@
 
 \section*{Aufgabe 1}
 
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A };
+  \node[main] (2) [below of=1]  { B };
+  \node[main] (3) [right of=2]  { C }; 
+  \node[main] (4) [right of=1]  { D };
+  \node[main] (5) [right of=4]  { E }; 
+  \node[main] (6) [right of=3]  { F };
+
+  \draw[->] (1) -- node[midway] {7 (1, 5)} (2);
+  \draw[->] (1) -- node[midway] {8 (4, 11)} (4);
+
+  \draw[->] (2) -- node[midway] {3 (1, 6)} (3);
+
+  \draw[->] (3) -- node[midway] {6 (1, 5)} (5);
+  \draw[->] (3) -- node[midway] {11 (0, 7)} (6);
+
+  \draw[->] (4) -- node[midway] {-5 (3, 8)} (3);
+  \draw[  ] (4) -- node[midway] {2 (0, 4)} (5);
+
+  \draw[->] (5) -- node[midway] {9 (0, 6)} (6);
+\end{tikzpicture}
+
 
 \section*{Aufgabe 2}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { S };
+  \node[main] (2) [below of=1]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (4) [right of=1]  { 1 };
+  \node[main] (5) [right of=4]  { 4 }; 
+  \node[main] (6) [right of=3]  { 5 };
+  \node[main] (7) [right of=5]  { T };
+
+  \draw[->] (1) -- node[midway] {5} (2);
+  \draw[->] (1) -- node[midway] {6} (4);
+
+  \draw[->] (2) -- node[midway] {4} (3);
+
+  \draw[->] (3) -- node[midway] {3} (5);
+  \draw[->] (3) -- node[midway] {2} (6);
+
+  \draw[->] (4) -- node[midway] {7} (3);
+  \draw[->] (4) -- node[midway] {6} (5);
+  \draw[->] (4) to [looseness=1] node[midway] {7} (7);
+
+  \draw[->] (5) -- node[midway] {6} (6);
+  \draw[->] (5) -- node[midway] {4} (7);
+
+  \draw[->] (6) -- node[midway] {5} (7);
+\end{tikzpicture}
 
 
 \section*{Aufgabe 3}
 
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { S };
+  \node[main] (2) [below of=1]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (4) [right of=1]  { 1 };
+  \node[main] (5) [right of=4]  { 4 }; 
+  \node[main] (6) [right of=3]  { 5 };
+  \node[main] (7) [right of=5]  { T };
+
+  \draw[->] (1) -- node[midway] {1, 5} (2);
+  \draw[->] (1) -- node[midway] {2, 6} (4);
+
+  \draw[->] (2) -- node[midway] {1, 4} (3);
+
+  \draw[->] (3) -- node[midway] {2, 3} (5);
+  \draw[->] (3) -- node[midway] {4, 2} (6);
+
+  \draw[->] (4) -- node[midway] {2, 7} (3);
+  \draw[->] (4) -- node[midway] {1, 6} (5);
+  \draw[->] (4) to [looseness=1] node[midway] {4, 7} (7);
+
+  \draw[->] (5) -- node[midway] {1, 6} (6);
+  \draw[->] (5) -- node[midway] {2, 4} (7);
+
+  \draw[->] (6) -- node[midway] {3, 5} (7);
+\end{tikzpicture}
 
 \end{document}
