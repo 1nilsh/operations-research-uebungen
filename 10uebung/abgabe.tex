@@ -1,0 +1,482 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=32pt]{geometry} % Seitenränder
+
+\usepackage{lmodern,textcomp,amsfonts} % The package supports the Text Companion fonts, which provide many text symbols
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+\usepackage{cases} % Fallunterscheidungen mathematisch übereinander
+
+\usepackage{tikz} % Graphen
+\usetikzlibrary{positioning}
+
+\usepackage{tcolorbox}
+
+\newtcbox{\wbox}{left=0pt, right=0pt, top=0pt, bottom=0pt, arc=0pt, boxrule=0pt, colback=white, colframe=white}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{
+    Lösung \\
+    Übungsblatt 10
+}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+
+\raggedright % Alles Linksbündig
+\setlength{\mathindent}{0cm} % align* nicht eingerückt
+
+\section*{Aufgabe 1}
+
+\subsection*{Ausgangsmodell}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A };
+  \node[main] (2) [below of=1]  { B };
+  \node[main] (3) [right of=2]  { C }; 
+  \node[main] (4) [right of=1]  { D };
+  \node[main] (5) [right of=4]  { E }; 
+  \node[main] (6) [right of=3]  { F };
+
+  \draw[->] (1) -- node[midway] {\wbox{7 (1, 5)}} (2);
+  \draw[->] (1) -- node[midway] {\wbox{8 (4, 11)}} (4);
+
+  \draw[->] (2) -- node[midway] {\wbox{3 (1, 6)}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{6 (1, 5)}} (5);
+  \draw[->] (3) -- node[midway] {\wbox{11 (0, 7)}} (6);
+
+  \draw[->] (4) -- node[midway] {\wbox{-5 (3, 8)}} (3);
+  \draw[  ] (4) -- node[midway] {\wbox{2 (0, 4)}} (5);
+
+  \draw[->] (5) -- node[midway] {\wbox{9 (0, 6)}} (6);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Ungerichtete Kanten umformen}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A };
+  \node[main] (2) [below of=1]  { B };
+  \node[main] (3) [right of=2]  { C }; 
+  \node[main] (4) [right of=1]  { D };
+  \node[main] (5) [right of=4]  { E }; 
+  \node[main] (6) [right of=3]  { F };
+
+  \draw[->] (1) -- node[midway] {\wbox{7 (1, 5)}} (2);
+  \draw[->] (1) -- node[midway] {\wbox{8 (4, 11)}} (4);
+
+  \draw[->] (2) -- node[midway] {\wbox{3 (1, 6)}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{6 (1, 5)}} (5);
+  \draw[->] (3) -- node[midway] {\wbox{11 (0, 7)}} (6);
+
+  \draw[->] (4) -- node[midway] {\wbox{-5 (3, 8)}} (3);
+  \draw[->] (4) -- node[midway] {\wbox{2 (0, 4)}} (5);
+  \draw[<-] (4) to [looseness=1] node[midway] {\wbox{2 (0, 4)}} (5);
+
+  \draw[->] (5) -- node[midway] {\wbox{9 (0, 6)}} (6);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Untere Schranken = 0}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (9) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (3) }; 
+  \node[main] (4) [right of=1]  { D (1) };
+  \node[main] (5) [right of=4]  { E (1) }; 
+  \node[main] (6) [right of=3]  { F (-14) };
+
+  \draw[->] (1) -- node[midway] {\wbox{7 (0, 4)}} (2);
+  \draw[->] (1) -- node[midway] {\wbox{8 (0, 7)}} (4);
+
+  \draw[->] (2) -- node[midway] {\wbox{3 (0, 5)}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{6 (0, 4)}} (5);
+  \draw[->] (3) -- node[midway] {\wbox{11 (0, 7)}} (6);
+
+  \draw[->] (4) -- node[midway] {\wbox{-5 (0, 5)}} (3);
+  \draw[->] (4) -- node[midway] {\wbox{2 (0, 4)}} (5);
+  \draw[<-] (4) to [looseness=1] node[midway] {\wbox{2 (0, 4)}} (5);
+
+  \draw[->] (5) -- node[midway] {\wbox{9 (0, 6)}} (6);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Alle Kosten $\ge 0$}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (9) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (8) }; 
+  \node[main] (4) [right of=1]  { D (-4) };
+  \node[main] (5) [right of=4]  { E (1) }; 
+  \node[main] (6) [right of=3]  { F (-14) };
+
+  \draw[->] (1) -- node[midway] {\wbox{7 (0, 4)}} (2);
+  \draw[->] (1) -- node[midway] {\wbox{8 (0, 7)}} (4);
+
+  \draw[->] (2) -- node[midway] {\wbox{3 (0, 5)}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{6 (0, 4)}} (5);
+  \draw[->] (3) -- node[midway] {\wbox{11 (0, 7)}} (6);
+
+  \draw[<-] (4) -- node[midway] {\wbox{5 (0, 5)}} (3);
+  \draw[->] (4) -- node[midway] {\wbox{2 (0, 4)}} (5);
+  \draw[<-] (4) to [looseness=1] node[midway] {\wbox{2 (0, 4)}} (5);
+
+  \draw[->] (5) -- node[midway] {\wbox{9 (0, 6)}} (6);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Asymmetrie herstellen}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (9) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (8) }; 
+  \node[main] (4) [right of=1]  { D (-4) };
+  \node[main] (5) [right of=4]  { E (1) }; 
+  \node[main] (6) [right of=3]  { F (-14) };
+  \node[main] (7) [above right of=4]  { DE (0) };
+
+  \draw[->] (1) -- node[midway] {\wbox{7 (0, 4)}} (2);
+  \draw[->] (1) -- node[midway] {\wbox{8 (0, 7)}} (4);
+
+  \draw[->] (2) -- node[midway] {\wbox{3 (0, 5)}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{6 (0, 4)}} (5);
+  \draw[->] (3) -- node[midway] {\wbox{11 (0, 7)}} (6);
+
+  \draw[<-] (4) -- node[midway] {\wbox{5 (0, 5)}} (3);
+  \draw[->] (4) -- node[midway] {\wbox{2 (0, 4)}} (5);
+
+  \draw[->] (5) -- node[midway] {\wbox{9 (0, 6)}} (6);
+  \draw[->] (5) -- node[midway] {\wbox{0 (0, 4)}} (7);
+
+  \draw[->] (7) -- node[midway] {\wbox{2 (0, 4)}} (4);
+\end{tikzpicture}
+\vspace{10mm}
+
+\subsection*{Eine Quelle und eine Senke}
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (1) []            { A (0) };
+  \node[main] (2) [below of=1]  { B (0) };
+  \node[main] (3) [right of=2]  { C (0) }; 
+  \node[main] (4) [right of=1]  { D (0) };
+  \node[main] (5) [right of=4]  { E (0) }; 
+  \node[main] (6) [right of=3]  { F (0) };
+  \node[main] (7) [above right of=4]  { DE (0) };
+  \node[main] (8) [above left of=1]  { s (18) }; % Superquelle
+  \node[main] (9) [below right of=6]  { t (-18) }; % Supersenke
+
+  \draw[->] (1) -- node[midway] {\wbox{7 (0, 4)}} (2);
+  \draw[->] (1) -- node[midway] {\wbox{8 (0, 7)}} (4);
+
+  \draw[->] (2) -- node[midway] {\wbox{3 (0, 5)}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{6 (0, 4)}} (5);
+  \draw[->] (3) -- node[midway] {\wbox{11 (0, 7)}} (6);
+
+  \draw[<-] (4) -- node[midway] {\wbox{5 (0, 5)}} (3);
+  \draw[->] (4) -- node[midway] {\wbox{2 (0, 4)}} (5);
+
+  \draw[->] (5) -- node[midway] {\wbox{9 (0, 6)}} (6);
+  \draw[->] (5) -- node[midway] {\wbox{0 (0, 4)}} (7);
+
+  \draw[->] (7) -- node[midway] {\wbox{2 (0, 4)}} (4);
+
+  \draw[->] (8) -- node[midway] {\wbox{0 (0, 9)}} (1);
+  \draw[->] (8) to [looseness=1] node[midway] {\wbox{0 (0, 8)}} (3);
+  \draw[->] (8) to [looseness=1] node[midway] {\wbox{0 (0, 1)}} (5);
+
+  \draw[<-] (9) -- node[midway] {\wbox{0 (0, 14})} (6);
+  \draw[<-] (9) to [out=180, in=300, looseness=2] node[midway] {\wbox{0 (0, 4)}} (4);
+\end{tikzpicture}
+\vspace{10mm}
+
+
+\section*{Aufgabe 2}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T };
+
+  \draw[->] (S) -- node[midway] {\wbox{5}} (2);
+  \draw[->][red] (S) -- node[midway] {\wbox{6}} (1);
+
+  \draw[->] (2) -- node[midway] {\wbox{4}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{3}} (4);
+  \draw[->] (3) -- node[midway] {\wbox{2}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{7}} (3);
+  \draw[->] (1) -- node[midway] {\wbox{6}} (4);
+  \draw[->][red] (1) to [looseness=1] node[midway] {\wbox{7}} (T);
+
+  \draw[->] (4) -- node[midway] {\wbox{6}} (5);
+  \draw[->] (4) -- node[midway] {\wbox{4}} (T);
+
+  \draw[->] (5) -- node[midway] {\wbox{5}} (T);
+\end{tikzpicture} \\
+\vspace{4mm}
+$d := min({6,7}) = 6$ \\
+$z := 0 + 6 = 6$
+\vspace{10mm}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T };
+
+  \draw[->][red] (S) -- node[midway] {\wbox{5}} (2);
+  \draw[<-] (S) -- node[midway] {\wbox{6}} (1);
+
+  \draw[->][red] (2) -- node[midway] {\wbox{4}} (3);
+
+  \draw[->][red] (3) -- node[midway] {\wbox{3}} (4);
+  \draw[->] (3) -- node[midway] {\wbox{2}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{7}} (3);
+  \draw[->] (1) -- node[midway] {\wbox{6}} (4);
+  \draw[->] (1) to [out=90, in=90, looseness=.5] node[midway] {\wbox{1}} (T);
+  \draw[<-] (1) to [looseness=.5] node[midway] {\wbox{6}} (T);
+
+  \draw[->] (4) -- node[midway] {\wbox{6}} (5);
+  \draw[->][red] (4) -- node[midway] {\wbox{4}} (T);
+
+  \draw[->] (5) -- node[midway] {\wbox{5}} (T);
+\end{tikzpicture} \\
+\vspace{4mm}
+$d := min({5,4,3,4}) = 3$ \\
+$z := 0 + 6 + 3 = 9$
+\vspace{10mm}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T };
+
+  \draw[->][red] (S) -- node[midway] {\wbox{2}} (2);
+  \draw[<-] (S) to [out=225, in=135, looseness=.5] node[midway] {\wbox{3}} (2);
+  \draw[<-] (S) -- node[midway] {\wbox{6}} (1);
+
+  \draw[->][red] (2) -- node[midway] {\wbox{1}} (3);
+  \draw[<-] (2) to [out=315, in=225, looseness=.5] node[midway] {\wbox{3}} (3);
+
+  \draw[<-] (3) -- node[midway] {\wbox{3}} (4);
+  \draw[->][red] (3) -- node[midway] {\wbox{2}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{7}} (3);
+  \draw[->] (1) -- node[midway] {\wbox{6}} (4);
+  \draw[->] (1) to [out=90, in=90, looseness=.5] node[midway] {\wbox{1}} (T);
+  \draw[<-] (1) to [looseness=.5] node[midway] {\wbox{6}} (T);
+
+  \draw[->] (4) -- node[midway] {\wbox{6}} (5);
+  \draw[->] (4) -- node[midway] {\wbox{1}} (T);
+  \draw[<-] (4) to [out=315, in=225, looseness=.5] node[midway] {\wbox{3}} (T);
+
+  \draw[->][red] (5) to [out=0, in=270, looseness=.7] node[midway] {\wbox{5}} (T);
+\end{tikzpicture} \\
+\vspace{4mm}
+$d := min({2,1,2,5}) = 1$ \\
+$z := 0 + 6 + 3 + 1 = 10$
+\vspace{10mm}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T };
+
+  \draw[->] (S) -- node[midway] {\wbox{1}} (2);
+  \draw[<-] (S) to [out=225, in=135, looseness=.5] node[midway] {\wbox{4}} (2);
+  \draw[<-] (S) -- node[midway] {\wbox{6}} (1);
+
+  \draw[<-] (2) to [out=315, in=225, looseness=.5] node[midway] {\wbox{4}} (3);
+
+  \draw[<-] (3) -- node[midway] {\wbox{3}} (4);
+  \draw[->] (3) -- node[midway] {\wbox{1}} (5);
+  \draw[<-] (3) to [out=315, in=225, looseness=.5] node[midway] {\wbox{1}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{7}} (3);
+  \draw[->] (1) -- node[midway] {\wbox{6}} (4);
+  \draw[->] (1) to [out=90, in=90, looseness=.5] node[midway] {\wbox{1}} (T);
+  \draw[<-] (1) to [looseness=.5] node[midway] {\wbox{6}} (T);
+
+  \draw[->] (4) -- node[midway] {\wbox{6}} (5);
+  \draw[->] (4) -- node[midway] {\wbox{1}} (T);
+  \draw[<-] (4) to [out=315, in=225, looseness=.5] node[midway] {\wbox{3}} (T);
+
+  \draw[->] (5) to [out=0, in=270, looseness=.7] node[midway] {\wbox{4}} (T);
+  \draw[<-] (5) to [out=315, in=315, looseness=.7] node[midway] {\wbox{1}} (T);
+\end{tikzpicture} \\
+\vspace{4mm}
+Keine weiteren Schritte möglich. \\
+Maximaler Fluss von 10 Einheiten.
+\vspace{10mm}
+
+\section*{Aufgabe 3}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S (9) };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T (-9) };
+
+  \draw[->] (S) -- node[midway] {\wbox{1, 5}} (2);
+  \draw[->][red] (S) -- node[midway] {\wbox{2, 6}} (1);
+
+  \draw[->] (2) -- node[midway] {\wbox{1, 4}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{2, 3}} (4);
+  \draw[->] (3) -- node[midway] {\wbox{4, 2}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{2, 7}} (3);
+  \draw[->][red] (1) -- node[midway] {\wbox{1, 6}} (4);
+  \draw[->] (1) to [looseness=1] node[midway] {\wbox{4, 7}} (T);
+
+  \draw[->] (4) -- node[midway] {\wbox{1, 6}} (5);
+  \draw[->][red] (4) -- node[midway] {\wbox{2, 4}} (T);
+
+  \draw[->] (5) -- node[midway] {\wbox{3, 5}} (T);
+\end{tikzpicture}
+\vspace{4mm}
+$d := min(\{6,6,4\}) = 4$ \\
+$z := 0 + 4 = 4$
+\vspace{10mm}
+
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S (9) };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T (-9) };
+
+  \draw[->] (S) -- node[midway] {\wbox{1, 5}} (2);
+  \draw[->][red] (S) -- node[midway] {\wbox{2, 2}} (1);
+  \draw[<-] (S) to [looseness=.5] node[midway] {\wbox{-2, 4}} (1);
+
+  \draw[->] (2) -- node[midway] {\wbox{1, 4}} (3);
+
+  \draw[->] (3) -- node[midway] {\wbox{2, 3}} (4);
+  \draw[->] (3) -- node[midway] {\wbox{4, 2}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{2, 7}} (3);
+  \draw[->] (1) -- node[midway] {\wbox{1, 2}} (4);
+  \draw[<-] (1) to [looseness=.5] node[midway] {\wbox{-1, 4}} (4);
+  \draw[->][red] (1) to [in=90, out=90, looseness=1] node[midway] {\wbox{4, 7}} (T);
+
+  \draw[->] (4) -- node[midway] {\wbox{1, 6}} (5);
+  \draw[<-] (4) to [looseness=.5] node[midway] {\wbox{-2, 4}} (T);
+
+  \draw[->] (5) -- node[midway] {\wbox{3, 5}} (T);
+\end{tikzpicture}
+\vspace{4mm}
+$d := min(\{2,7\}) = 2$ \\
+$z := 0 + 4 + 2 = 6$
+\vspace{10mm}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S (9) };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T (-9) };
+
+  \draw[->][red] (S) -- node[midway] {\wbox{1, 5}} (2);
+  \draw[<-] (S) to [looseness=.5] node[midway] {\wbox{-2, 6}} (1);
+
+  \draw[->][red] (2) -- node[midway] {\wbox{1, 4}} (3);
+
+  \draw[->][red] (3) -- node[midway] {\wbox{2, 3}} (4);
+  \draw[->] (3) -- node[midway] {\wbox{4, 2}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{2, 7}} (3);
+  \draw[->] (1) -- node[midway] {\wbox{1, 2}} (4);
+  \draw[<-] (1) to [looseness=.5] node[midway] {\wbox{-1, 4}} (4);
+  \draw[->] (1) to [in=90, out=90, looseness=1] node[midway] {\wbox{4, 5}} (T);
+  \draw[<-] (1) to [in=100, out=80, looseness=.8] node[midway] {\wbox{-4, 2}} (T);
+
+  \draw[->][red] (4) -- node[midway] {\wbox{1, 6}} (5);
+  \draw[<-] (4) to [looseness=.5] node[midway] {\wbox{-2, 4}} (T);
+
+  \draw[->][red] (5) -- node[midway] {\wbox{3, 5}} (T);
+\end{tikzpicture}
+\vspace{4mm}
+$d := min(\{5,4,3,6,5\}) = 3$ \\
+$z := 0 + 4 + 2 + 3 = 9$
+\vspace{10mm}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=4cm and 1cm, thick, main/.style = {draw, circle}]
+  \node[main] (S) []            { S (9) };
+  \node[main] (2) [below of=S]  { 2 };
+  \node[main] (3) [right of=2]  { 3 }; 
+  \node[main] (1) [right of=S]  { 1 };
+  \node[main] (4) [right of=1]  { 4 }; 
+  \node[main] (5) [right of=3]  { 5 };
+  \node[main] (T) [right of=4]  { T (-9) };
+
+  \draw[->] (S) -- node[midway] {\wbox{1, 2}} (2);
+  \draw[<-] (S) to [in=180, out=180, looseness=.5] node[midway] {\wbox{-1, 3}} (2);
+  \draw[<-] (S) to [looseness=.5] node[midway] {\wbox{-2, 6}} (1);
+
+  \draw[->] (2) -- node[midway] {\wbox{1, 1}} (3);
+  \draw[<-] (2) to [in=270, out=270, looseness=.5] node[midway] {\wbox{-1, 3}} (3);
+
+  \draw[<-] (3) -- node[midway] {\wbox{-2, 3}} (4);
+  \draw[->] (3) -- node[midway] {\wbox{4, 2}} (5);
+
+  \draw[->] (1) -- node[midway] {\wbox{2, 7}} (3);
+  \draw[->] (1) -- node[midway] {\wbox{1, 2}} (4);
+  \draw[<-] (1) to [looseness=.5] node[midway] {\wbox{-1, 4}} (4);
+  \draw[->] (1) to [in=90, out=90, looseness=1] node[midway] {\wbox{4, 5}} (T);
+  \draw[<-] (1) to [in=100, out=80, looseness=.8] node[midway] {\wbox{-4, 2}} (T);
+
+  \draw[->] (4) -- node[midway] {\wbox{1, 3}} (5);
+  \draw[<-] (4) to [in=60, out=300, looseness=1.5] node[midway] {\wbox{-1, 3}} (5);
+  \draw[<-] (4) to [looseness=.5] node[midway] {\wbox{-2, 4}} (T);
+
+  \draw[->] (5) to [in=270, out=0, looseness=.5] node[midway] {\wbox{3, 2}} (T);
+  \draw[<-] (5) to [in=290, out=340, looseness=1] node[midway] {\wbox{-3, 3}} (T);
+\end{tikzpicture}
+\vspace{4mm}
+
+Abbruchbedingung weil z = 9 und Angebot bei S = 9 und Nachfrage bei T = 9 \\
+
+Kosten = $3*3 + 3*1 + 3*2 + 3*1 + 3*1 + 4*2 + 4*2 + 4*1 + 2*6 = 56$ \\
+
+\vspace{10mm}
+
+
+\end{document}
