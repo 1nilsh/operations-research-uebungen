@@ -33,9 +33,96 @@
 
 \section*{Aufgabe 1}
 
+\textbf{Tour}: Die angefahrenen Kunden, ohne, dass deren Reihenfolge beachtet wird. \\
+\textbf{Route}: Die Reihenfolge der eben erklärten Tour. \\
+\textbf{Depot}: Die Quelle und Senke im System, an der Routen beginnen/enden. \\
 
 \section*{Aufgabe 2}
 
+\subsection*{a)}
+
+\begin{align*}
+    N &= \{A, B, C, D, E, F\} \\
+    A &= \{ \\
+      &~(B, A), (C, A), (D, A), (F, A), \\
+      &~(A, B), (C, B), (D, B), (E, B), (F, B), \\
+      &~(B, C), (A, C), (E, C), (F, C), \\
+      &~(C, D), (A, D), (E, D), (F, D), \\
+      &~(B, E), (C, E), (D, E), (A, E), (F, E), \\
+      &~(B, F), (D, F), (E, F), (A, F) \\
+        \} \\
+    G &= (N, A): ~\text{Gerichteter Graph G, der das TSP darstellt} \\
+    c_{ij} &: ~\text{Kosten der Kante ij} \\
+    x_{ij} & \left\{\begin{array}{l}
+        1: ~\text{Kante von i zu j gehört zur Tour} \\
+        0: ~\text{Kante von i zu j gehört nicht zur Tour} \\
+    \end{array}\right. \\
+\end{align*}
+
+\subsubsection*{LP: }
+
+\begin{align*}
+    \text{min. } z  =&~ 2x_{AB} 
+                    + 2x_{AC} 
+                    + 3x_{AD} 
+                    + 4x_{AF} \\
+                    &+ 2x_{BA} 
+                    + 2x_{BC} 
+                    + 3x_{BD} 
+                    + 4x_{BE} 
+                    + 6x_{BF} \\
+                    &+ 2x_{CA} 
+                    + 3x_{CB} 
+                    + 3x_{CE} 
+                    + 12x_{CF} \\
+                    &+ 3x_{DA} 
+                    + 4x_{DC} 
+                    + 5x_{DE} 
+                    + 3x_{DF} \\
+                    &+ 4x_{EA} 
+                    + 4x_{EB} 
+                    + 3x_{EC} 
+                    + 5x_{ED} 
+                    + 2x_{EF} \\
+                    &+ 4x_{FA} 
+                    + 6x_{FB} 
+                    + 3x_{FD} 
+                    + 4x_{FE}
+\end{align*}
+\begin{align*}
+    \text{s.t. } & x_{AB} + x_{AC} + x_{AD} + x_{AF} = 1 \\ % A ->
+                 & x_{BA} + x_{CA} + x_{DA} + x_{EA} + x_{FA} = 1 \\ % A <-
+                 & x_{BA} + x_{BC} + x_{BD} + x_{BE} + x_{BF} = 1 \\ % B ->
+                 & x_{AB} + x_{CB} + x_{EB} + x_{FB} = 1 \\ % B <-
+                 & x_{CA} + x_{CB} + x_{CE} + x_{CF} = 1 \\ % C ->
+                 & x_{AC} + x_{BC} + x_{DC} + x_{EC} = 1 \\ % C <-
+                 & x_{DA} + x_{DC} + x_{DE} + x_{DF} = 1 \\ % D ->
+                 & x_{AD} + x_{BD} + x_{ED} + x_{FD} = 1 \\ % D <-
+                 & x_{EA} + x_{EB} + x_{EC} + x_{ED} = 1 \\ % E ->
+                 & x_{BE} + x_{CE} + x_{DE} + x_{FE} = 1 \\ % E <-
+                 & x_{FA} + x_{FB} + x_{FD} + x_{FE} = 1 \\ % F ->
+                 & x_{AF} + x_{BF} + x_{CF} + x_{DF} + x_{EF} = 1 \\ % F <-
+                 & x_{ij} \in \{1, 0\}
+\end{align*}
+
+\subsection*{b)}
+
+Sollen hier Beispiele aus der echten Welt hin?
+
+\subsection*{c)}
+
+Bei symmetrischem Graph: \\
+\begin{align*}
+    |s| &= \frac{n!}{2n} \\
+        &= \frac{6!}{2*6} \\
+        &= 60 \\
+\end{align*}
+
+Bei asymmetrischem Graph: \\
+\begin{align*}
+    |s| &= n! \\
+        &= 720 \\
+\end{align*}
 
 \section*{Aufgabe 3}
 
