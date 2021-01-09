@@ -12,6 +12,8 @@
 \usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
 \usepackage{cases} % Fallunterscheidungen mathematisch übereinander
 
+\usepackage{fontawesome}
+
 \usepackage{tikz} % Graphen
 \usetikzlibrary{positioning}
 
@@ -107,7 +109,7 @@
 
 \subsection*{b)}
 
-Sollen hier Beispiele aus der echten Welt hin?
+Container China $\to$ USA sind teurer als umgekehrt. Straßensperrungen können bestimmte Verbindungen ganz kappen. Einbahn-Trassen können Umwege in bestimmten Richtungen erzwingen. Staus können bestimmte Straßen teurer machen. \\
 
 \subsection*{c)}
 
@@ -120,11 +122,70 @@ Bei symmetrischem Graph: \\
 
 Bei asymmetrischem Graph: \\
 \begin{align*}
-    |s| &= n! \\
-        &= 720 \\
+    |s| &= (n-1)! \\
+        &= 5! \\
+        &= 120 \\
 \end{align*}
 
 \section*{Aufgabe 3}
 
+\subsection*{Möglichkeit 1}
+Echte Teilmengen: $S = \{ 1, 5, 6 \}$, $T = \{ 2, 3, 4 \}$ \\
+
+Verbindungen erzwingen:
+\begin{align*}
+    &x_{12} + x_{62} + x_{64} \ge 1 \\
+    \Leftrightarrow ~& 0 + 0 + 0 \ge 1 ~\text{\faBolt} \\
+    \\
+    &x_{26} + x_{21} + x_{25} + x_{31} + x_{35} + x_{41} + x_{45} \ge 1 \\
+    \Leftrightarrow ~& 0 + 0 + 0 \ge 1 ~\text{\faBolt} \\
+\end{align*}
+
+\subsection*{Möglichkeit 2}
+Echte Teilmengen: $S = \{ 1, 5, 6 \}$, $T = \{ 2, 3, 4 \}$ \\
+
+Subtouren aufbrechen:
+\begin{align*}
+    &x_{24} + x_{43} + x_{32} \le 2 \\
+    \Leftrightarrow ~& 1 + 1 + 1 \le 2 ~\text{\faBolt} \\
+    \\
+    &x_{16} + x_{65} + x_{51} \le 2 \\
+    \Leftrightarrow ~& 1 + 1 + 1 \le 2 ~\text{\faBolt} \\
+\end{align*}
+
+\subsection*{Möglichkeit 3}
+
+MTZ:
+\begin{align*}
+    z_1 = 1 \\
+    2 \le z_i \le 6 \\
+    x_{ij} \in \{0, 1\} \\
+\end{align*}
+
+Teilmenge 1:
+\begin{align*}
+    z_2 - z_4 + 6x_{24} \le 5 \\
+    z_4 - z_3 + 6x_{43} \le 5 \\
+    z_3 - z_2 + 6x_{32} \le 5
+\end{align*}
+
+\begin{align*}
+    & z_2 - z_4 + 6x_{24} + z_4 - z_3 + 6x_{43} + z_3 - z_2 + 6x_{32} \le 15 \\
+    =~&  6x_{24} + 6x_{43} + 6x_{32} \le 15 \\
+    =~& 18 \le 15 ~\text{\faBolt} \\
+\end{align*}
+
+Teilmenge 2:
+\begin{align*}
+    z_1 - z_6 + 6x_{16} \le 5 \\
+    z_6 - z_5 + 6x_{65} \le 5 \\
+    z_5 - z_1 + 6x_{51} \le 5
+\end{align*}
+
+\begin{align*}
+    & z_1 - z_6 + 6x_{16} + z_6 - z_5 + 6x_{65} + z_5 - z_1 + 6x_{51} \le 15 \\
+    =~& 6x_{16} + 6x_{65} + 6x_{51} \le 15 \\
+    =~& 18 \le 15 ~\text{\faBolt} \\
+\end{align*}
 
 \end{document}
