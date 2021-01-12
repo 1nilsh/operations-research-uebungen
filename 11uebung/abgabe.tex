@@ -1,0 +1,191 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=32pt]{geometry} % Seitenränder
+
+\usepackage{lmodern,textcomp,amsfonts} % The package supports the Text Companion fonts, which provide many text symbols
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+\usepackage{cases} % Fallunterscheidungen mathematisch übereinander
+
+\usepackage{fontawesome}
+
+\usepackage{tikz} % Graphen
+\usetikzlibrary{positioning}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{
+    Lösung \\
+    Übungsblatt 11
+}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+
+\raggedright % Alles Linksbündig
+\setlength{\mathindent}{0cm} % align* nicht eingerückt
+
+\section*{Aufgabe 1}
+
+\textbf{Tour}: Die angefahrenen Kunden, ohne, dass deren Reihenfolge beachtet wird. \\
+\textbf{Route}: Die Reihenfolge der eben erklärten Tour. \\
+\textbf{Depot}: Die Quelle und Senke im System, an der Routen beginnen/enden. \\
+
+\section*{Aufgabe 2}
+
+\subsection*{a)}
+
+\begin{align*}
+    N &= \{A, B, C, D, E, F\} \\
+    A &= \{ \\
+      &~(B, A), (C, A), (D, A), (F, A), \\
+      &~(A, B), (C, B), (D, B), (E, B), (F, B), \\
+      &~(B, C), (A, C), (E, C), (F, C), \\
+      &~(C, D), (A, D), (E, D), (F, D), \\
+      &~(B, E), (C, E), (D, E), (A, E), (F, E), \\
+      &~(B, F), (D, F), (E, F), (A, F) \\
+        \} \\
+    G &= (N, A): ~\text{Gerichteter Graph G, der das TSP darstellt} \\
+    c_{ij} &: ~\text{Kosten der Kante ij} \\
+    x_{ij} & \left\{\begin{array}{l}
+        1: ~\text{Kante von i zu j gehört zur Tour} \\
+        0: ~\text{Kante von i zu j gehört nicht zur Tour} \\
+    \end{array}\right. \\
+\end{align*}
+
+\subsubsection*{LP: }
+
+\begin{align*}
+    \text{min. } z  =&~ 2x_{AB} 
+                    + 2x_{AC} 
+                    + 3x_{AD} 
+                    + 4x_{AF} \\
+                    &+ 2x_{BA} 
+                    + 2x_{BC} 
+                    + 3x_{BD} 
+                    + 4x_{BE} 
+                    + 6x_{BF} \\
+                    &+ 2x_{CA} 
+                    + 3x_{CB} 
+                    + 3x_{CE} 
+                    + 12x_{CF} \\
+                    &+ 3x_{DA} 
+                    + 4x_{DC} 
+                    + 5x_{DE} 
+                    + 3x_{DF} \\
+                    &+ 4x_{EA} 
+                    + 4x_{EB} 
+                    + 3x_{EC} 
+                    + 5x_{ED} 
+                    + 2x_{EF} \\
+                    &+ 4x_{FA} 
+                    + 6x_{FB} 
+                    + 3x_{FD} 
+                    + 4x_{FE}
+\end{align*}
+\begin{align*}
+    \text{s.t. } & x_{AB} + x_{AC} + x_{AD} + x_{AF} = 1 \\ % A ->
+                 & x_{BA} + x_{CA} + x_{DA} + x_{EA} + x_{FA} = 1 \\ % A <-
+                 & x_{BA} + x_{BC} + x_{BD} + x_{BE} + x_{BF} = 1 \\ % B ->
+                 & x_{AB} + x_{CB} + x_{EB} + x_{FB} = 1 \\ % B <-
+                 & x_{CA} + x_{CB} + x_{CE} + x_{CF} = 1 \\ % C ->
+                 & x_{AC} + x_{BC} + x_{DC} + x_{EC} = 1 \\ % C <-
+                 & x_{DA} + x_{DC} + x_{DE} + x_{DF} = 1 \\ % D ->
+                 & x_{AD} + x_{BD} + x_{ED} + x_{FD} = 1 \\ % D <-
+                 & x_{EA} + x_{EB} + x_{EC} + x_{ED} = 1 \\ % E ->
+                 & x_{BE} + x_{CE} + x_{DE} + x_{FE} = 1 \\ % E <-
+                 & x_{FA} + x_{FB} + x_{FD} + x_{FE} = 1 \\ % F ->
+                 & x_{AF} + x_{BF} + x_{CF} + x_{DF} + x_{EF} = 1 \\ % F <-
+                 & x_{ij} \in \{1, 0\}
+\end{align*}
+
+\subsection*{b)}
+
+Container China $\to$ USA sind teurer als umgekehrt. Straßensperrungen können bestimmte Verbindungen ganz kappen. Einbahn-Trassen können Umwege in bestimmten Richtungen erzwingen. Staus können bestimmte Straßen teurer machen. \\
+
+\subsection*{c)}
+
+Bei symmetrischem Graph: \\
+\begin{align*}
+    |s| &= \frac{n!}{2n} \\
+        &= \frac{6!}{2*6} \\
+        &= 60 \\
+\end{align*}
+
+Bei asymmetrischem Graph: \\
+\begin{align*}
+    |s| &= (n-1)! \\
+        &= 5! \\
+        &= 120 \\
+\end{align*}
+
+\section*{Aufgabe 3}
+
+\subsection*{Möglichkeit 1}
+Echte Teilmengen: $S = \{ 1, 5, 6 \}$, $T = \{ 2, 3, 4 \}$ \\
+
+Verbindungen erzwingen:
+\begin{align*}
+    &x_{12} + x_{62} + x_{64} \ge 1 \\
+    \Leftrightarrow ~& 0 + 0 + 0 \ge 1 ~\text{\faBolt} \\
+    \\
+    &x_{26} + x_{21} + x_{25} + x_{31} + x_{35} + x_{41} + x_{45} \ge 1 \\
+    \Leftrightarrow ~& 0 + 0 + 0 \ge 1 ~\text{\faBolt} \\
+\end{align*}
+
+\subsection*{Möglichkeit 2}
+Echte Teilmengen: $S = \{ 1, 5, 6 \}$, $T = \{ 2, 3, 4 \}$ \\
+
+Subtouren aufbrechen:
+\begin{align*}
+    &x_{24} + x_{43} + x_{32} \le 2 \\
+    \Leftrightarrow ~& 1 + 1 + 1 \le 2 ~\text{\faBolt} \\
+    \\
+    &x_{16} + x_{65} + x_{51} \le 2 \\
+    \Leftrightarrow ~& 1 + 1 + 1 \le 2 ~\text{\faBolt} \\
+\end{align*}
+
+\subsection*{Möglichkeit 3}
+
+MTZ:
+\begin{align*}
+    z_1 = 1 \\
+    2 \le z_i \le 6 \\
+    x_{ij} \in \{0, 1\} \\
+\end{align*}
+
+Teilmenge 1:
+\begin{align*}
+    z_2 - z_4 + 6x_{24} \le 5 \\
+    z_4 - z_3 + 6x_{43} \le 5 \\
+    z_3 - z_2 + 6x_{32} \le 5
+\end{align*}
+
+\begin{align*}
+    & z_2 - z_4 + 6x_{24} + z_4 - z_3 + 6x_{43} + z_3 - z_2 + 6x_{32} \le 15 \\
+    =~&  6x_{24} + 6x_{43} + 6x_{32} \le 15 \\
+    =~& 18 \le 15 ~\text{\faBolt} \\
+\end{align*}
+
+Teilmenge 2:
+\begin{align*}
+    z_1 - z_6 + 6x_{16} \le 5 \\
+    z_6 - z_5 + 6x_{65} \le 5 \\
+    z_5 - z_1 + 6x_{51} \le 5
+\end{align*}
+
+\begin{align*}
+    & z_1 - z_6 + 6x_{16} + z_6 - z_5 + 6x_{65} + z_5 - z_1 + 6x_{51} \le 15 \\
+    =~& 6x_{16} + 6x_{65} + 6x_{51} \le 15 \\
+    =~& 18 \le 15 ~\text{\faBolt} \\
+\end{align*}
+
+\end{document}
