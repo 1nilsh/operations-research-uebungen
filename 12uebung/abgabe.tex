@@ -73,19 +73,19 @@
 
 Tourenplan 1: \\
 $[1,2][3,4][5]$ \\
-Gesamtlänge: 20 \\
+Gesamtlänge: 20 \newline
 
 Tourenplan 2: \\
 $[2,3][4,5][1]$ \\
-Gesamtlänge: 22 \\
+Gesamtlänge: 22 \newline
 
 Tourenplan 3: \\
 $[3,4][5,1][2]$ \\
-Gesamtlänge: 24 \\
+Gesamtlänge: 24 \newline
 
 Tourenplan 4: \\
 $[4,5][1,2][3]$ \\
-Gesamtlänge: 19 \\
+Gesamtlänge: 19 \newline
 
 Tourenplan 5: \\
 $[5,1][2,3][4]$ \\
@@ -95,6 +95,82 @@ Der Kürzeste Tourenplan ist Tourenplan 4. \\
 $D \to 4 \to 5 \to D \to 1 \to 2 \to D \to 3 \to D$
 
 \section*{Aufgabe 2}
+
+\subsection*{Teil 1}
+
+$D \leftrightarrow K_1: 2 * 20$ \\
+$D \leftrightarrow K_2: 2 * 30$ \\
+$D \leftrightarrow K_3: 2 * 40$ \\
+$D \leftrightarrow K_4: 2 * 30$ \\
+$D \leftrightarrow K_5: 2 * 40$ \\
+Tourenlänge insgesamt: 320km = 4800€
+
+\subsection*{Teil 2}
+
+Savings-Matrix: \newline
+
+\begin{tabular}{c|c|c|c|c|c}
+   &  K1  &  K2  &  K3  &  K4  &  K5  \\ \hline
+K1 &  -   &  40  &  10  & -10  &  10  \\ \hline
+K2 &      &  -   &  40  &  10  &  10  \\ \hline
+K3 &      &      &  -   &  50  &  30  \\ \hline
+K4 &      &      &      &  -   &  30  \\ \hline
+K5 &      &      &      &      &  - 
+\end{tabular}
+
+\subsection*{Teil 3}
+
+\textbf{Schritt 1:} \\
+K3-K4 Zusammenlegen. Neue Tourenlänge: 270km \newline
+
+\textbf{Schritt 2:} \\
+K1-K2 Zusammenlegen. Neue Tourenlänge: 230km \newline
+
+\textbf{Schritt 3:} \\
+K2-K3 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 230km \newline
+
+\textbf{Schritt 4:} \\
+K5-K3 Zusammenlegen. Neue Tourenlänge: 200km \newline
+
+\textbf{Schritt 5:} \\
+K4-K5 Zusammenlegen nicht möglich, da diese schon Teil einer gemeinsamen Tour sind. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 6:} \\
+K1-K3 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 7:} \\
+K1-K4 Zusammenlegen nicht sinnvoll aufgrund von negativem Saving. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 8:} \\
+K1-K5 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 9:} \\
+K2-K4 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 10:} \\
+K2-K5 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\subsection*{Finale Touren}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=5cm and 2cm, thick, main/.style = {draw, circle}]
+    \node[main] (D) [] { \textbf{D} };
+    \node[main] (1) [right of=D] { 1 };
+    \node[main] (2) [above of=D] { 2 };
+    \node[main] (3) [left of=D] { 3 };
+    \node[main] (4) [below left of=D] { 4 };
+    \node[main] (5) [below right of=D] { 5 };
+  
+    \draw[->] (D) -- node[midway] {\wbox{20}} (1);
+    \draw[->] (1) -- node[midway] {\wbox{10}} (2);
+    \draw[->] (2) -- node[midway] {\wbox{30}} (D);
+
+    \draw[->] (D) -- node[midway] {\wbox{40}} (5);
+    \draw[->] (5) -- node[midway] {\wbox{50}} (3);
+    \draw[->] (3) -- node[midway] {\wbox{20}} (4);
+    \draw[->] (4) -- node[midway] {\wbox{30}} (D);
+\end{tikzpicture} \newline
+
+Länge der Touren: 200km = 3000€ \\
 
 \section*{Aufgabe 3}
 
