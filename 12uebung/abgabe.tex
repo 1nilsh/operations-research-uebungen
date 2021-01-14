@@ -1,0 +1,101 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=32pt]{geometry} % Seitenränder
+
+\usepackage{lmodern,textcomp,amsfonts} % The package supports the Text Companion fonts, which provide many text symbols
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+\usepackage{cases} % Fallunterscheidungen mathematisch übereinander
+
+\usepackage{fontawesome}
+
+\usepackage{tikz} % Graphen
+\usetikzlibrary{positioning}
+
+\usepackage{tcolorbox}
+
+\newtcbox{\wbox}{left=0pt, right=0pt, top=0pt, bottom=0pt, arc=0pt, boxrule=0pt, colback=white, colframe=white}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{
+    Lösung \\
+    Übungsblatt 12
+}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+
+\raggedright % Alles Linksbündig
+\setlength{\mathindent}{0cm} % align* nicht eingerückt
+
+\section*{Aufgabe 1}
+
+\subsection*{Schritt 1: Knoten sortieren}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=5cm and 2cm, thick, main/.style = {draw, circle}]
+    \node[main] (D) [] { D };
+    \node[main] (1) [above right of=D] { 1 };
+    \node[main] (2) [above left of=D] { 2 };
+    \node[main] (3) [left of=D] { 3 };
+    \node[main] (4) [below of=D] { 4 };
+    \node[main] (5) [right of=D] { 5 };
+  
+    \draw[-] (D) -- node[midway] {\wbox{4}} (1);
+    \draw[-] (D) -- node[midway] {\wbox{3}} (2); % siehe mystudy
+    \draw[-] (D) -- node[midway] {\wbox{3}} (3);
+    \draw[-] (D) -- node[midway] {\wbox{2}} (4);
+    \draw[-] (D) -- node[midway] {\wbox{2}} (5);
+
+    \draw[-] (1) -- node[midway] {\wbox{1}} (2);
+    \draw[-] (1) -- node[midway] {\wbox{5}} (3);
+    \draw[-] (1) -- node[midway] {\wbox{6}} (4);
+    \draw[-] (1) -- node[midway] {\wbox{4}} (5);
+
+    \draw[-] (2) -- node[midway] {\wbox{2}} (3);
+    \draw[-] (2) -- node[midway] {\wbox{6}} (4);
+    \draw[-] (2) -- node[midway] {\wbox{7}} (5);
+
+    \draw[-] (3) -- node[midway] {\wbox{3}} (4);
+
+    \draw[-] (4) -- node[midway] {\wbox{2}} (5);
+\end{tikzpicture} \\
+
+\subsection*{Schritt 2: Tourenplan bilden}
+
+Tourenplan 1: \\
+$[1,2][3,4][5]$ \\
+Gesamtlänge: 20 \\
+
+Tourenplan 2: \\
+$[2,3][4,5][1]$ \\
+Gesamtlänge: 22 \\
+
+Tourenplan 3: \\
+$[3,4][5,1][2]$ \\
+Gesamtlänge: 24 \\
+
+Tourenplan 4: \\
+$[4,5][1,2][3]$ \\
+Gesamtlänge: 19 \\
+
+Tourenplan 5: \\
+$[5,1][2,3][4]$ \\
+Gesamtlänge: 22 \newline
+
+Der Kürzeste Tourenplan ist Tourenplan 4. \\
+$D \to 4 \to 5 \to D \to 1 \to 2 \to D \to 3 \to D$
+
+\section*{Aufgabe 2}
+
+\section*{Aufgabe 3}
+
+\end{document}
