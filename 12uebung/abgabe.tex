@@ -1,0 +1,283 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage[ngerman]{babel} % Change hyphenation rules
+\usepackage{ziffer} % , können in Zahlen verwendet werden ohne Formatierung kaputt zu machen
+\usepackage[top=30mm,right=20mm,bottom=15mm,left=25mm,includefoot,headheight=32pt]{geometry} % Seitenränder
+
+\usepackage{lmodern,textcomp,amsfonts} % The package supports the Text Companion fonts, which provide many text symbols
+\usepackage[fleqn]{amsmath} % Formatierte Gleichungen
+\usepackage{graphicx} % Grafiken
+\usepackage{xcolor} % Farbe in Text
+\usepackage{fancyhdr} % Seitenstil mit Kopfzeile etc.
+\usepackage{cases} % Fallunterscheidungen mathematisch übereinander
+
+\usepackage{fontawesome}
+
+\usepackage{tikz} % Graphen
+\usetikzlibrary{positioning}
+
+\usepackage{tcolorbox}
+
+\newtcbox{\wbox}{left=0pt, right=0pt, top=0pt, bottom=0pt, arc=0pt, boxrule=0pt, colback=white, colframe=white}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{
+    Lösung \\
+    Übungsblatt 12
+}
+\rhead{Gruppe 3 \\Nils \textbf{Hodys}, Sascha \textbf{Majewsky}}
+\rfoot{Seite \thepage}
+
+\setlength{\parindent}{0cm} % Keine Einrückung der 1. Zeile eines Absatzes
+
+\begin{document}
+
+\raggedright % Alles Linksbündig
+\setlength{\mathindent}{0cm} % align* nicht eingerückt
+
+\section*{Aufgabe 1}
+
+\subsection*{Schritt 1: Knoten sortieren}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=5cm and 2cm, thick, main/.style = {draw, circle}]
+    \node[main] (D) [] { D };
+    \node[main] (1) [above right of=D] { 1 };
+    \node[main] (2) [above left of=D] { 2 };
+    \node[main] (3) [left of=D] { 3 };
+    \node[main] (4) [below of=D] { 4 };
+    \node[main] (5) [right of=D] { 5 };
+  
+    \draw[-] (D) -- node[midway] {\wbox{4}} (1);
+    \draw[-] (D) -- node[midway] {\wbox{3}} (2); % siehe mystudy
+    \draw[-] (D) -- node[midway] {\wbox{3}} (3);
+    \draw[-] (D) -- node[midway] {\wbox{2}} (4);
+    \draw[-] (D) -- node[midway] {\wbox{2}} (5);
+
+    \draw[-] (1) -- node[midway] {\wbox{1}} (2);
+    \draw[-] (1) -- node[midway] {\wbox{5}} (3);
+    \draw[-] (1) -- node[midway] {\wbox{6}} (4);
+    \draw[-] (1) -- node[midway] {\wbox{4}} (5);
+
+    \draw[-] (2) -- node[midway] {\wbox{2}} (3);
+    \draw[-] (2) -- node[midway] {\wbox{6}} (4);
+    \draw[-] (2) -- node[midway] {\wbox{7}} (5);
+
+    \draw[-] (3) -- node[midway] {\wbox{3}} (4);
+
+    \draw[-] (4) -- node[midway] {\wbox{2}} (5);
+\end{tikzpicture} \\
+
+\subsection*{Schritt 2: Tourenplan bilden}
+
+Tourenplan 1: \\
+$[1,2][3,4][5]$ \\
+Gesamtlänge: 20 \newline
+
+Tourenplan 2: \\
+$[2,3][4,5][1]$ \\
+Gesamtlänge: 22 \newline
+
+Tourenplan 3: \\
+$[3,4][5,1][2]$ \\
+Gesamtlänge: 24 \newline
+
+Tourenplan 4: \\
+$[4,5][1,2][3]$ \\
+Gesamtlänge: 20 \newline
+
+Tourenplan 5: \\
+$[5,1][2,3][4]$ \\
+Gesamtlänge: 22 \newline
+
+Die kürzesten Tourenpläne sind Tourenplan 1 und 4, die beide eine Gesamtlänge von 20 haben. \\
+Tourenplan 1: $D \to 1 \to 2 \to D \to 3 \to 4 \to D \to 5 \to D$ \\
+Tourenplan 4: $D \to 4 \to 5 \to D \to 1 \to 2 \to D \to 3 \to D$ \\
+
+\section*{Aufgabe 2}
+
+\subsection*{Teil 1}
+
+$D \leftrightarrow K_1: 2 * 20\text{km}$ \\
+$D \leftrightarrow K_2: 2 * 30\text{km}$ \\
+$D \leftrightarrow K_3: 2 * 40\text{km}$ \\
+$D \leftrightarrow K_4: 2 * 30\text{km}$ \\
+$D \leftrightarrow K_5: 2 * 40\text{km}$ \\
+Tourenlänge insgesamt: 320km, entspricht 4800€
+
+\subsection*{Teil 2}
+
+Savings-Matrix: \newline
+
+\begin{tabular}{c|c|c|c|c|c}
+   &  K1  &  K2  &  K3  &  K4  &  K5  \\ \hline
+K1 &  -   &  40  &  10  & -10  &  10  \\ \hline
+K2 &      &  -   &  40  &  10  &  10  \\ \hline
+K3 &      &      &  -   &  50  &  30  \\ \hline
+K4 &      &      &      &  -   &  30  \\ \hline
+K5 &      &      &      &      &  - 
+\end{tabular}
+
+\subsection*{Teil 3}
+
+\textbf{Schritt 1:} \\
+K3-K4 Zusammenlegen. Neue Tourenlänge: 270km \newline
+
+\textbf{Schritt 2:} \\
+K1-K2 Zusammenlegen. Neue Tourenlänge: 230km \newline
+
+\textbf{Schritt 3:} \\
+K2-K3 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 230km \newline
+
+\textbf{Schritt 4:} \\
+K5-K3 Zusammenlegen. Neue Tourenlänge: 200km \newline
+
+\textbf{Schritt 5:} \\
+K4-K5 Zusammenlegen nicht möglich, da diese schon Teil einer gemeinsamen Tour sind. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 6:} \\
+K1-K3 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 7:} \\
+K1-K4 Zusammenlegen nicht sinnvoll aufgrund von negativem Saving. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 8:} \\
+K1-K5 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 9:} \\
+K2-K4 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\textbf{Schritt 10:} \\
+K2-K5 Zusammenlegen nicht möglich aufgrund von Gewichtsbegrenzung. Tourenlänge weiterhin: 200km \newline
+
+\subsection*{Finale Touren}
+
+\begin{tikzpicture}[inner sep=3mm, node distance=5cm and 2cm, thick, main/.style = {draw, circle}]
+    \node[main] (D) [] { \textbf{D} };
+    \node[main] (1) [right of=D] { 1 };
+    \node[main] (2) [above of=D] { 2 };
+    \node[main] (3) [left of=D] { 3 };
+    \node[main] (4) [below left of=D] { 4 };
+    \node[main] (5) [below right of=D] { 5 };
+  
+    \draw[->] (D) -- node[midway] {\wbox{20}} (1);
+    \draw[->] (1) -- node[midway] {\wbox{10}} (2);
+    \draw[->] (2) -- node[midway] {\wbox{30}} (D);
+
+    \draw[->] (D) -- node[midway] {\wbox{40}} (5);
+    \draw[->] (5) -- node[midway] {\wbox{50}} (3);
+    \draw[->] (3) -- node[midway] {\wbox{20}} (4);
+    \draw[->] (4) -- node[midway] {\wbox{30}} (D);
+\end{tikzpicture} \newline
+
+Länge der Touren: 200km = 3000€ \\
+
+\section*{Aufgabe 3}
+
+\subsection*{Anfangslösung}
+\begin{tikzpicture}[inner sep=3mm, node distance=5cm and 2cm, thick, main/.style = {draw, circle}]
+    \node[main] (D) [] { \textbf{D} };
+    \node[main] (1) [above of=D] { 1 };
+    \node[main] (2) [left of=D] { 2 };
+    \node[main] (3) [below left of=D] { 3 };
+    \node[main] (4) [below of=D] { 4 };
+    \node[main] (5) [right of=D] { 5 };
+    \node[main] (6) [above right of=D] { 6 };
+  
+    \draw[->] (D) -- node[midway] {\wbox{35}} (3);
+    \draw[->] (3) -- node[midway] {\wbox{15}} (2);
+    \draw[->] (2) -- node[midway] {\wbox{30}} (1);
+    \draw[->] (1) -- node[midway] {\wbox{20}} (6);
+    \draw[->] (6) -- node[midway] {\wbox{15}} (5);
+    \draw[->] (5) -- node[midway] {\wbox{30}} (4);
+    \draw[->] (4) -- node[midway] {\wbox{15}} (D);
+\end{tikzpicture} \\
+
+\textbf{Knoten durchnummerieren:} \newline
+
+\begin{tabular}{c|c|c|c|c|c|c|c}
+    D & 3 & 2 & 1 & 6 & 5 & 4 & D  \\ \hline
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & - 
+\end{tabular} \newline
+
+$i=1; j=3$ \\
+Prüfung $ C_{D,3} + C_{2,1} > C_{D,2} + C_{3,1} $ \\
+$\Leftrightarrow 35 + 30 > 20 + 15$ Wahr! \newline
+
+Daher Tausch D,3 und 2,1 gegen D,2 und 3,1
+
+\subsection*{Nächster Schritt}
+\begin{tikzpicture}[inner sep=3mm, node distance=5cm and 2cm, thick, main/.style = {draw, circle}]
+    \node[main] (D) [] { \textbf{D} };
+    \node[main] (1) [above of=D] { 1 };
+    \node[main] (2) [left of=D] { 2 };
+    \node[main] (3) [below left of=D] { 3 };
+    \node[main] (4) [below of=D] { 4 };
+    \node[main] (5) [right of=D] { 5 };
+    \node[main] (6) [above right of=D] { 6 };
+  
+    \draw[->] (D) -- node[midway] {\wbox{20}} (2);
+    \draw[->] (2) -- node[midway] {\wbox{15}} (3);
+    \draw[->] (3) -- node[midway] {\wbox{15}} (1);
+    \draw[->] (1) -- node[midway] {\wbox{20}} (6);
+    \draw[->] (6) -- node[midway] {\wbox{15}} (5);
+    \draw[->] (5) -- node[midway] {\wbox{30}} (4);
+    \draw[->] (4) -- node[midway] {\wbox{15}} (D);
+\end{tikzpicture} \\
+
+\textbf{Knoten durchnummerieren:} \newline
+
+\begin{tabular}{c|c|c|c|c|c|c|c}
+    D & 2 & 3 & 1 & 6 & 5 & 4 & D  \\ \hline
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & - 
+\end{tabular} \newline
+
+$i=1; j=3$ \\
+Prüfung $ C_{D,2} + C_{3,1} > C_{D,3} + C_{2,1} $ \\
+$\Leftrightarrow 20 + 15 > 35 + 30$ Falsch! \newline
+
+$i=1; j=4$ \\
+Prüfung $ C_{D,2} + C_{1,6} > C_{D,1} + C_{2,6} $ \\
+$\Leftrightarrow 20 + 20 > 15 + \infty $ Falsch! \newline
+
+$i=1; j=5$ \\
+Prüfung $ C_{D,2} + C_{6,5} > C_{D,6} + C_{2,5} $ \\
+$\Leftrightarrow 20 + 15 > 35 + 40 $ Falsch! \newline
+
+$i=1; j=6$ \\
+Prüfung $ C_{D,2} + C_{5,4} > C_{D,5} + C_{2,4} $ \\
+$\Leftrightarrow 20 + 30 > 20 + 30 $ Falsch! \newline
+
+$i=2; j=4$ \\
+Prüfung $ C_{2,3} + C_{1,6} > C_{2,1} + C_{3,6} $ \\
+$\Leftrightarrow 15 + 20 > 30 + 2 $ Wahr! \newline
+
+Daher Tausch 2,3 und 1,6 gegen 2,1 und 3,6
+
+\subsection*{Nächster Schritt}
+\begin{tikzpicture}[inner sep=3mm, node distance=5cm and 2cm, thick, main/.style = {draw, circle}]
+    \node[main] (D) [] { \textbf{D} };
+    \node[main] (1) [above of=D] { 1 };
+    \node[main] (2) [left of=D] { 2 };
+    \node[main] (3) [below left of=D] { 3 };
+    \node[main] (4) [below of=D] { 4 };
+    \node[main] (5) [right of=D] { 5 };
+    \node[main] (6) [above right of=D] { 6 };
+  
+    \draw[->] (D) -- node[midway] {\wbox{20}} (2);
+    \draw[->] (2) -- node[midway] {\wbox{30}} (1);
+    \draw[->] (1) -- node[midway] {\wbox{15}} (3);
+    \draw[->] (3) to [looseness=.7] node[midway] {\wbox{2}} (6);
+    \draw[->] (6) -- node[midway] {\wbox{15}} (5);
+    \draw[->] (5) -- node[midway] {\wbox{30}} (4);
+    \draw[->] (4) -- node[midway] {\wbox{15}} (D);
+\end{tikzpicture} \newline
+
+\textit{Abbruch nach 2 mal tauschen.} \newline
+
+Endlösung: $D \to 2 \to 1 \to 3 \to 6 \to 5 \to 4 \to D$ \\
+
+Länge der Lösung: 127 \\
+
+\end{document}
