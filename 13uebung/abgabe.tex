@@ -29,9 +29,142 @@
 \setlength{\mathindent}{0cm} % align* nicht eingerückt
 
 \section*{Aufgabe 1}
+\subsection*{a) ADD-Algorithmus}
+\subsubsection*{Schritt 0}
+\begin{tabular}{l|l|l|l|l|l||l}
+      & PA & NA & MA & TO & $f_i$ & $\sum$ \\ \hline
+  LY  & 110 & 130 & 110 & 80 & 310 & 740 \\ \hline
+  NI  & 190 & 230 & 60 & 70 & 260 & 810 \\ \hline
+  MO  & 160 & 130 & 40 & 30 & 280 & \textbf{640} \\ \hline
+  PA  & 5 & 120 & 150 & 200 & 290 & 765 \\ 
+\end{tabular} \newline
 
+Ergebnis: Eröffne Standort MO endgültig. \\
+$I_0^{VL} = \{LY, NI, PA\}; I_0 = \{ \}; I_1 = \{MO\}; z = 640$
+
+\subsubsection*{Schritt 1}
+Berechne Matrix $W$ mit: $w_{ij} = \text{max} \{c_{MO \to j} - c_{i \to j}, 0\}$ für alle $i$ aus $I_0^{VL}$ \\
+
+\begin{tabular}{l|l|l|l|l||l|l|l}
+    & PA & NA & MA & TO & $\sum w_i$ & $f_i$ & $w_i - f_i$ \\ \hline
+LY  & 50 & 0 & 0 & 0 & 50 & 310 & 0 \\ \hline
+NI  & 0 & 0 & 0 & 0 & 0 & 260 & 0 \\ \hline
+PA  & 155 & 10 & 0 & 0 & 165 & 290 & 0 \\ 
+\end{tabular} \newline
+
+Ergebnis: Verbiete Standorte LY, NI, PA endgültig. \\
+$I_0 = \{ LY, NI, PA \}; I_1 = \{ MO \}; z = 640$ \\
+
+~\newline
+
+\textit{Alle Kunden werden durch das Lager Montpellier beliefert. Es entstehen Kosten von 640 TEuro (Zielfunktionswert).} \\
+
+\subsection*{b) DROP-Algorithmus}
+\begin{tabular}{l|l|l|l|l|l}
+      & PA & NA & MA & TO & $f_i$ \\ \hline
+  LY  & 110 & 130 & 110 & 80 & 310 \\ \hline
+  NI  & 190 & 230 & 60 & 70 & 260 \\ \hline
+  MO  & 160 & 130 & 40 & 30 & 280 \\ \hline
+  PA  & 5 & 120 & 150 & 200 & 290 \\ 
+\end{tabular} \newline
+
+$z = (310 + 260 + 280 + 290) + (5 + 120 + 40 + 30) = 1335$ \\
+
+\subsubsection*{Iteration 1}
+Wenn Standort ... verboten wird: \newline
+
+LY: $z = (260 + 280 + 290) + (5 + 120 + 40 + 30) = 1025$ $\to$\textbf{Verbesserung: 310} \\
+NI: $z = (310 + 280 + 290) + (5 + 120 + 40 + 30) = 1075$ $\to$Verbesserung: 260 \\
+MO: $z = (310 + 260 + 290) + (5 + 120 + 60 + 70) = 1115$ $\to$Verbesserung: 220 \\
+PA: $z = (310 + 260 + 280) + (110 + 130 + 40 + 30) = 1160$ $\to$Verbesserung: 175 \\
+~\newline
+$\longrightarrow$ Standort LY endgültig verbieten. \\
+$\longrightarrow$ $I_0 = \{LY\}; I_1 = \{ \}; I_1^{VL} = \{NI, MO, PA\}$ \\
+~\newline
+
+\begin{tabular}{l|l|l|l|l|l}
+    & PA & NA & MA & TO & $f_i$ \\ \hline
+NI  & 190 & 230 & 60 & 70 & 260 \\ \hline
+MO  & 160 & 130 & 40 & 30 & 280 \\ \hline
+PA  & 5 & 120 & 150 & 200 & 290 \\ 
+\end{tabular} \newline
+
+$z = (260 + 280 + 290) + (5 + 120 + 40 + 30) = 1025$ \\
+
+\subsubsection*{Iteration 2}
+Wenn Standort ... verboten wird: \newline
+
+NI: $z = (280 + 290) + (5 + 120 + 40 + 30) = 765$ $\to$\textbf{Verbesserung: 260} \\
+MO: $z = (260 + 290) + (5 + 120 + 60 + 70) = 805$ $\to$Verbesserung: 220 \\
+PA: $z = (260 + 280) + (160 + 130 + 40 + 30) = 900$ $\to$Verbesserung: 125 \\
+~\newline
+$\longrightarrow$ Standort NI endgültig verbieten. \\
+$\longrightarrow$ $I_0 = \{LY, NI\}; I_1 = \{ \}; I_1^{VL} = \{MO, PA\}$
+~\newline
+
+\begin{tabular}{l|l|l|l|l|l}
+    & PA & NA & MA & TO & $f_i$ \\ \hline
+MO  & 160 & 130 & 40 & 30 & 280 \\ \hline
+PA  & 5 & 120 & 150 & 200 & 290 \\ 
+\end{tabular} \newline
+
+$z = (280 + 290) + (5 + 120 + 40 + 30) = 765$ \\
+
+\subsubsection*{Iteration 3}
+Wenn Standort ... verboten wird: \newline
+
+MO: $z = (290) + (5 + 120 + 150 + 200) = 765$ $\to$Verbesserung: 0 \\
+PA: $z = (280) + (160 + 130 + 40 + 30) = 640$ $\to$\textbf{Verbesserung: 125} \\
+~\newline
+$\longrightarrow$ Standort PA endgültig verbieten. \\
+$\longrightarrow$ $I_0 = \{LY, NI, PA\}; I_1 = \{ \}; I_1^{VL} = \{MO\}$
+~\newline
+
+\begin{tabular}{l|l|l|l|l|l}
+    & PA & NA & MA & TO & $f_i$ \\ \hline
+MO  & 160 & 130 & 40 & 30 & 280 \\
+\end{tabular} \newline
+
+$z = (280) + (160 + 130 + 40 + 30) = 640$ \\
+
+\subsubsection*{Iteration 4}
+Wenn Standort ... verboten wird: \newline
+
+MO: $z = (290) + (5 + 120 + 150 + 200) = 765$ $\to$Verbesserung: 0 \\
+~\newline
+$\longrightarrow$ Fertig, da keine Verbesserung durch weiteres Verbieten mehr möglich. Die vorläufig eröffneten Standorte werden endgültig eröffnet. \\
+$\longrightarrow$ $I_0 = \{LY, NI, PA\}; I_1 = \{MO\}$
+
+~\newline
+
+\textit{Alle Kunden werden durch das Lager Montpellier beliefert. Es entstehen Kosten von 640 TEuro (Zielfunktionswert).} \\
 
 \section*{Aufgabe 2}
+\subsection*{Mengen}
+Menge der potenziellen Standorte $J=\{1,...,n\}$ \\
+Menge der Kunden $I=\{1,...,m\}$ \\
+
+\subsection*{Parameter}
+\begin{align*}
+    j &: ~\text{Einzelner Standort} ~ j \in J \\
+    i &: ~\text{Kundengruppe} ~ i \in I \\
+    c_{ij} &: ~\text{Kosten für Transport} \\
+    k &: ~\text{Höchstzahl Standorte} \\
+    f_j &: ~\text{Errichtungskosten für Standort j} \\
+    I_j &: ~\text{Untere Schranke Anzahl belieferter Kunden aus Standort j} \\
+    u_j &: ~\text{Obere Schranke Anzahl belieferter Kunden aus Standort j} \\
+    a_i &: ~\text{Anzahl Kunden in Gruppe i} \\
+    B &: ~\text{Obere Schranke Errichtungskosten für alle Standorte} \\
+\end{align*}
+
+\subsection*{Variablen}
+\begin{align*}
+    y_j &: \begin{cases}
+        1, & \text{Standort j wird Errichtet} \\
+        0, & \text{Standort j wird nicht Errichtet}
+    \end{cases} \\
+    x_{ji} &: \{ x ~|~ 0 \le x \le 1 \} ~\text{wobei $x_{ij}$ = 1, wenn Kunde i von dem pot. Standort j vollständig beliefert wird} \\
+\end{align*}
 
 
 \end{document}
