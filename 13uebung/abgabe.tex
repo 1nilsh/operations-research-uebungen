@@ -151,7 +151,7 @@ Menge der Kunden $I=\{1,...,m\}$ \\
     c_{ij} &: ~\text{Kosten für Transport} \\
     k &: ~\text{Höchstzahl Standorte} \\
     f_j &: ~\text{Errichtungskosten für Standort j} \\
-    I_j &: ~\text{Untere Schranke Anzahl belieferter Kunden aus Standort j} \\
+    l_j &: ~\text{Untere Schranke Anzahl belieferter Kunden aus Standort j} \\
     u_j &: ~\text{Obere Schranke Anzahl belieferter Kunden aus Standort j} \\
     a_i &: ~\text{Anzahl Kunden in Gruppe i} \\
     B &: ~\text{Obere Schranke Errichtungskosten für alle Standorte} \\
@@ -166,5 +166,17 @@ Menge der Kunden $I=\{1,...,m\}$ \\
     x_{ji} &: \{ x ~|~ 0 \le x \le 1 \} ~\text{wobei $x_{ij}$ = 1, wenn Kunde i von dem pot. Standort j vollständig beliefert wird} \\
 \end{align*}
 
+\subsection*{Zielfunktion}
+\begin{align*}
+    \text{min.} ~& \sum_{j=1}^{n}\sum_{i=1}^{m}c_{ij} x_{ij} \\
+    ~\\
+    \text{s.t.} ~& x_{ji} \le y_j ~\text{für alle i und j} &&|~ \text{Es wird nur aus errichteten Standorten geliefert}  \\
+    & \sum_{j=1}^{n} f_j y_j \le B &&|~ \text{Kosten für errichtete Standorte kleiner als obere Schranke B} \\
+    & \sum_{j=1}^{n} y_j \le k &&|~ \text{Anzahl errichteter Standorte kleiner als Höchstzahl k} \\
+    & \sum_{i=1}^{m} y_j x_{ji} a_i \ge l_j ~\text{für alle j} &&|~ \text{Aus errichteten Standorten werden mindestens l Kunden beliefert} \\
+    & \sum_{i=1}^{m} y_j x_{ji} a_i \le u_j ~\text{für alle j} &&|~ \text{Aus errichteten Standorten werden höchstens u Kunden beliefert} \\
+    & y_j \in \{0, 1\} &&|~ \text{Binärvariable} \\
+    & x_ji \ge 0 &&|~ \text{NNB} \\
+\end{align*}
 
 \end{document}
