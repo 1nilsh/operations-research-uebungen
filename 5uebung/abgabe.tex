@@ -31,14 +31,14 @@
 \subsection*{Branch-and-Bound-Algo Abschneidungen von Teilbäumen} 
 \subsubsection*{Kriterien und Erläuterung für Abschneiden}
     \begin{itemize}
-        \item {Aufgrund von Unzulässigkeit des Teilbaumes \\
-                Der Teilbaum kann keine zulässigen Kindknoten besitzen
+        \item {Abschneiden aufgrund von Unzulässigkeit (Fall 1) \\
+                Das LP-Modell hat keine zulässige Lösungen. Also gibt es in dem Teilbaum keine zulässigen Lösungen für das IP bzw. MIP.
             }
-        \item {Aufgrund von Schranke des Teilbaumes \\
-                Es kann keine Kindknoten geben, die den Zielfunktionswert verbessern
+        \item {Abschneiden aufgrund einer Schranke (Fall 2) \\
+                Der bestmögliche Zielfunktionswert in diesem Teilbaum kann nicht besser sein als eine bisher gefundene Lösung.
             }
-        \item {Aufgrund von Optimalität des Teilbaumes \\
-                Es wurde ein lokales Optimum gefunden, der Algorithmus kann keine größte fraktionale Variable selektieren
+        \item {Abschneiden aufgrund von Optimalität (Fall 3) \\
+                Die LP-Lösung, also die Belegung der Variablen, ist ganzzahlig. [Anmerkung: Der Zielfunktionswert muss nicht unbedingt ganzzahlig sein!]
             }
     \end{itemize}
     Ein Teilbaum kann eine Unzulässigkeit aufweisen oder durch die Erreichung einer Schranke nur noch ineffiziente Verbesserungen der Zielfunktion erzeugen oder bereits Optimalität aufweisen. Bei all diesen Fällen findet eine Abschneidung aller folgenden Teilbäume des statt, weil durch das Hinzufügen von zusätzlichen Restriktionen keine bessere Lösung in den eventuell folgenden Teilbäumen erreicht werden kann. Jene weiter zu verfolgen wäre eine Vergeudung von Zeit.
@@ -71,6 +71,10 @@ Lösung durch Solver \\
 \textbf{$x_p=0$} ($x_p$ steht für Maschine von Typ Premium) \\
 
 Beginne mit Selektierung einer Variable mit größter Fraktionalität $x_s=25,71$
+
+Die Knoten sind nach der Reihenfolge, in der die Teilprobleme erstellt wurden benannt. \\
+
+Reihenfolge der Abarbeitung: a - b - d - e - f - h - i - g - c \\
 
 \subsubsection*{Binärbaum}
 \begin{tikzpicture}
